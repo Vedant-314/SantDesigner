@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import NewArrival from "../NewArrival/NewArrival";
 
 function Home() {
   return (
-    <div>Home</div>
-  )
+    <div>
+      <NewArrival></NewArrival>
+    </div>
+  );
 }
 
-export default Home
+export default Home;

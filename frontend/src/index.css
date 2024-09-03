@@ -2,3 +2,47 @@
   margin: 0;
   padding: 0;
 }
+
+.arrival-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+    width: 100%;
+}
+
+.arrival{
+    max-width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shipping-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shipping{
+    display: flex;
+    /* flex-flow: column; */
+}
+
+.shipping .shipping-card{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-size: 12px;
+    margin: 20px;
+    gap: 10px;
+}
+
+@media screen and (max-width: 900px) {
+    .shipping{
+        flex-flow: column;
+        align-items: left;
+        justify-content: center;
+    }
+}
