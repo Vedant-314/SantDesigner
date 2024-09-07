@@ -9,6 +9,7 @@ import About from "./Components/About/About";
 import Footer from "./Components/Footer/Footer";
 import Header from "./Components/Header/Header";
 import Home from "./Components/Home/Home";
+import Product from "./Components/Product/Product";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/product" element={<Product />} />
         </Routes>
         <Footer />
       </Router>

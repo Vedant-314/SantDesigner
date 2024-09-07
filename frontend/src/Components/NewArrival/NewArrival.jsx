@@ -1,7 +1,7 @@
 import { Card, Col, Row } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-// import src from "../../Assets/temp1.jpg";
+import src from "../../assets/back1.webp";
 import "./NewArrival.css"
 function NewArrival() {
   const navigate = useNavigate();
@@ -33,25 +33,25 @@ function NewArrival() {
       image: src,
     },
     {
-      _id: "1",
+      _id: "5",
       name: "Product 1",
       price: 1000,
       image: src,
     },
     {
-      _id: "2",
+      _id: "6",
       name: "Product 2",
       price: 1500,
       image: src,
     },
     {
-      _id: "3",
+      _id: "7",
       name: "Product 3",
       price: 2000,
       image: src,
     },
     {
-      _id: "4",
+      _id: "8",
       name: "Product 4",
       price: 2500,
       image: src,
