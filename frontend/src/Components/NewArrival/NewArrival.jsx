@@ -1,7 +1,7 @@
 import { Card, Col, Row } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import src from "../../Assets/temp1.jpg";
+// import src from "../../Assets/temp1.jpg";
 import "./NewArrival.css"
 function NewArrival() {
   const navigate = useNavigate();
