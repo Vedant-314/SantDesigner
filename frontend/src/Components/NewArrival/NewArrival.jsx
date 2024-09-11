@@ -2,7 +2,7 @@ import { Card, Col, Row } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import src from "../../assets/back1.webp";
-import "./NewArrival.css"
+import "./NewArrival.css";
 function NewArrival() {
   const navigate = useNavigate();
   const { Meta } = Card;
@@ -67,10 +67,12 @@ function NewArrival() {
             <Col key={product._id} span={4} sm={12} xs={24} md={6}>
               <Card
                 hoverable
-                style={{ marginTop: 16  , marginLeft: 16 , marginRight:16}}
+                style={{ marginTop: 16, marginLeft: 16, marginRight: 16 }}
                 cover={<img alt={product.name} src={product.image} />}
+                onClick={() => navigate(`/product?id=${product._id}`)}
               >
-                <Meta className="meta"
+                <Meta
+                  className="meta"
                   title={product.name}
                   description={`Rs ${product.price}`}
                 />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import 'swiper/css/navigation';
@@ -11,6 +11,10 @@ import { MdCurrencyExchange } from "react-icons/md";
 import "./product.css";
 
 function Product() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="product-container">
       <Swiper
