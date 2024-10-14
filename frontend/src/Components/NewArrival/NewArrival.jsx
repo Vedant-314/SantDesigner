@@ -69,7 +69,7 @@ function NewArrival() {
                 hoverable
                 style={{ marginTop: 16, marginLeft: 16, marginRight: 16 }}
                 cover={<img alt={product.name} src={product.image} />}
-                onClick={() => navigate(`/product?id=${product._id}`)}
+                onClick={() => navigate(`/product/${product._id}`)}
               >
                 <Meta
                   className="meta"

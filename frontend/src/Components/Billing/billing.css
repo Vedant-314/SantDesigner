@@ -1,0 +1,157 @@
+.billing-container{
+    width: 100%;
+    display: flex;
+}
+
+.billing-container .billing-left{
+    width: 50%;
+    padding: 10px;
+}
+
+.billing-container .billing-left .stsearch-box input{
+    border: none;
+}
+
+.billing-container .billing-left .stsearch-box{
+    height: 20px;
+}
+
+.cart-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 10px;
+    font-size: 14px;
+}
+
+  .billing-right {
+    width: 40%;
+    /* max-width: 400px; Adjust width as needed */
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 600px; /* Set a height for the cart container */
+    justify-content: space-between; /* Ensures footer stays at the bottom */
+  }
+  
+  .cart-items {
+    flex-grow: 1; /* Allows the cart items to take up remaining space */
+    overflow-y: auto;
+    margin-bottom: 20px;
+  }
+  
+  .cart-product {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f1f1;
+  }
+  
+  .img-container {
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+  }
+  
+  .img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .prod-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .cart-buttons {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .cart-buttons p {
+    margin: 0;
+    margin-right: 10px;
+  }
+  
+  .text {
+    font-size: 14px;
+    display: flex;
+    gap: 5px;
+  }
+  
+  .highlight {
+    font-weight: bold;
+    color: #f60; /* Highlight color for total price */
+  }
+  
+  .cart-total {
+    margin-top: auto; /* Pushes the total to the bottom */
+    padding-top: 10px;
+    border-top: 1px solid #f1f1f1;
+  }
+  
+  .cart-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .subtotal .text {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .total {
+    font-size: 18px;
+    font-weight: 600;
+    color: #f60;
+  }
+  
+  .button {
+    text-align: right;
+  }
+  
+  .checkout-cta {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  
+  .checkout-cta:hover {
+    background-color: #0056b3;
+  }
+
+  @media screen and (max-width: 600px){
+        .billing-container{
+            flex-flow: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .billing-container .billing-left{
+            width: 80%;
+        }
+
+        .billing-container .billing-right{
+            width: 80%;
+        }
+  }
+  

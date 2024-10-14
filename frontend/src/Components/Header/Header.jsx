@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { BsCart2 } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import { FaBars } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
-
+import { CiLogout } from "react-icons/ci";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../../../redux/userSlice";
 import "./header.css";
 import Cart from "../Cart/Cart";
 
@@ -11,6 +13,15 @@ function Header() {
   const [showCart, setShowCart] = useState(false);
   const [clicked, setClicked] = useState(false);
   const handleClick = () => setClicked(!clicked);
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    dispatch(logoutUser());
+    navigate("/login");
+  };
 
   return (
     <>
@@ -34,7 +45,7 @@ function Header() {
               <Link to="/idols">Idols</Link>
             </li>
             <li>
-              <Link to="/giftItems">Gifting Items</Link>
+              <Link to="/custom">Customised Designs</Link>
             </li>
             <li>
               <Link to="/about">About</Link>
@@ -45,9 +56,15 @@ function Header() {
           </ul>
         </div>
         <div className="right">
+          <span className="user-name">{user ? user.name : "Guest"}</span>
           <span className="cart-icon">
             <BsCart2 onClick={() => setShowCart(true)} />
           </span>
+          {user && (
+            <div onClick={handleLogout}>
+              <CiLogout />
+            </div>
+          )}
         </div>
       </div>
       {clicked && (
@@ -60,7 +77,7 @@ function Header() {
               <Link to="/idols">Idols</Link>
             </li>
             <li>
-              <Link to="/giftItems">Gifting Items</Link>
+              <Link to="/giftItems">Customised Designs</Link>
             </li>
             <li>
               <Link to="/about">About</Link>

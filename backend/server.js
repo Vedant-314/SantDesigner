@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const productRoutes = require('./routes/products')
+const userRoute = require("./routes/user")
 
 const PORT = process.env.PORT || process.env.API_PORT;
 
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/api/products', productRoutes);
+app.use('/api/user',userRoute);
 
 const server = http.createServer(app);
 
