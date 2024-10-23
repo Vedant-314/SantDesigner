@@ -6,6 +6,7 @@ require('dotenv').config();
 
 const productRoutes = require('./routes/products')
 const userRoute = require("./routes/user")
+const Product = require('./models/Product')
 
 const PORT = process.env.PORT || process.env.API_PORT;
 
@@ -17,6 +18,27 @@ app.use('/api/products', productRoutes);
 app.use('/api/user',userRoute);
 
 const server = http.createServer(app);
+
+// Fetch product details by SKU
+app.get("/api/products/sku/:sku", async (req, res) => {
+  try {
+    const productSku = req.params.sku;
+
+    // Find product by SKU
+    const product = await Product.findOne({ SKU: productSku });
+  
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    console.log(product);
+    res.json(product); // Return the full product details as JSON
+    
+  } catch (error) {
+    console.error("Error fetching product by SKU:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 
 mongoose.connect(process.env.MONGO_URI).then(() =>{
     server.listen(PORT, () =>{

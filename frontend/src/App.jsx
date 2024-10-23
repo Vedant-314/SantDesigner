@@ -13,6 +13,7 @@ import Home from "./Components/Home/Home";
 import Product from "./Components/Product/Product";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import PublicRoute from "./Components/PublicRoute";
+import AllArrivals from "./Components/AllArrivals/AllArrivals";
 
 function App() {
   return (
@@ -60,6 +61,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Billing />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/allarrivals"
+              element={
+                <ProtectedRoute>
+                  <AllArrivals />
                 </ProtectedRoute>
               }
             />

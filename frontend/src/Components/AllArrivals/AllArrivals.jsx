@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Card, Col, Row, Button } from "antd";
+import { Card, Col, Row } from "antd";
 import { useNavigate } from "react-router-dom";
-import "./NewArrival.css";
+import "./AllArrivals.css";
 
 const NewArrival = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]); 
   const navigate = useNavigate();
   const { Meta } = Card;
 
   useEffect(() => {
     const fetchProductImages = async () => {
       try {
+        
         const imageResponse = await fetch(
           "https://api.github.com/repos/Gurshaan-1/photos/contents/assets",
-         
+          
         );
 
         if (!imageResponse.ok) {
@@ -24,6 +25,7 @@ const NewArrival = () => {
 
         const imageData = await imageResponse.json();
 
+        
         const productResponse = await fetch(
           "http://localhost:5002/api/products/get-products"
         );
@@ -61,33 +63,26 @@ const NewArrival = () => {
 
   return (
     <div className="arrival-container">
-      <h2>NEW ARRIVALS</h2>
+      <h2>ALL PRODUCTS</h2>
       <div className="arrival">
         <Row gutter={16}>
-          {products.slice(0, 8).map((product) => (
+          {products.map((product) => (
             <Col key={product._id} span={6} sm={12} xs={24} md={6}>
               <Card
                 hoverable
                 style={{ marginTop: 16, marginLeft: 16, marginRight: 16 }}
                 cover={<img alt={product.name} src={product.imageUrl} />}
-                onClick={() => navigate(`/product/${product.SKU}`)} // Pass product ID
+                onClick={() => navigate(`/product/${product.SKU}`)}
               >
                 <Meta
                   className="meta"
                   title={product.name}
-                  description={`₹ ${product["Selling Price"]}`}
+                  description={`₹ ${product["Selling Price"]}`} // Displaying price
                 />
               </Card>
             </Col>
           ))}
         </Row>
-        {products.length > 8 && (
-          <div className="view-more-container">
-            <Button onClick={() => navigate("/allarrivals")} type="primary">
-              View More
-            </Button>
-          </div>
-        )}
       </div>
     </div>
   );

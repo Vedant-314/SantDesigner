@@ -16,12 +16,13 @@
   }
 
   .desc-container{
+    width: 100%;
     display: flex;
     margin-top: 10px;
   }
 
   .desc-container .desc-left{
-    width: 50%;
+    width: 60%;
     line-height: 2;
     display: flex;
     justify-content: center;
@@ -31,6 +32,7 @@
 
   .desc-container .desc-right{
     width: 50%;
+    line-height: 2.3;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,24 +46,31 @@
     align-items: center;
     gap: 5px;
     cursor: pointer;
-    background-color: white;
+    background-color: rgb(196, 196, 196);
     width: 200px;
+margin-top: 10px;
   }
 
   .desc-right button:hover{
-    background-color: #F6F1F1;
+    background-color: #b3b3b3;
     transition: all 0.2s ease-out ;
   }
 
   .desc-left .desc-content{
-    width: 80%;
+    width: 90%;
   }
-
-  .desc-left p{
+  .desc-right .desc-content{
+    width: 90%;
+  }
+  .desc-left p , .desc-right p{
     border: 1px dotted black;
     border-radius: 10px;
     padding: 10px;
   }
+
+h4{
+font-weight: 400;
+}
 
   span{
     font-weight: 400;
