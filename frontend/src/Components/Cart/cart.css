@@ -101,10 +101,11 @@ small {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
+  gap: 4px;
 }
 .cart-panel .cart-content .cart-footer .subtotal .text {
   margin-bottom: 0;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   text-transform: uppercase;
 }

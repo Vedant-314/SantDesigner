@@ -27,7 +27,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* padding: 20px; */
   }
 
   .desc-container .desc-right{
@@ -46,9 +45,10 @@
     align-items: center;
     gap: 5px;
     cursor: pointer;
-    background-color: rgb(196, 196, 196);
+    background-color: #F6F1F1;
     width: 200px;
-margin-top: 10px;
+    color: black;
+    margin-top: 10px;
   }
 
   .desc-right button:hover{

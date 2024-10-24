@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, Col, Row } from "antd";
 import { useNavigate } from "react-router-dom";
-import "./AllArrivals.css";
+// import "./allArrival.css";
 
 const NewArrival = () => {
   const [products, setProducts] = useState([]); 
@@ -37,9 +37,7 @@ const NewArrival = () => {
 
         const productData = await productResponse.json();
 
-        // Map product data with image URLs
         const updatedProductData = productData.map((product) => {
-          // Match product image based on product name or SKU
           const matchingImage = imageData.find((image) =>
             image.name.includes(product.SKU)
           );

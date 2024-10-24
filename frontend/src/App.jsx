@@ -14,6 +14,7 @@ import Product from "./Components/Product/Product";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import PublicRoute from "./Components/PublicRoute";
 import AllArrivals from "./Components/AllArrivals/AllArrivals";
+import Profile from "./Components/Profile/Profile";
 
 function App() {
   return (
@@ -69,6 +70,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <AllArrivals />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
                 </ProtectedRoute>
               }
             />

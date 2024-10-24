@@ -6,17 +6,82 @@ import {
   CitySelect,
 } from "react-country-state-city";
 
-import prod from "../../assets/loginBackGround.png"
+// import prod from "../../assets/loginBackGround.png"
 
 import "react-country-state-city/dist/react-country-state-city.css";
 import "./billing.css";
 import { useCart } from "../../../utils/context";
-import Cart from "../Cart/Cart";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 
 function Billing() {
   const [countryId, setCountryId] = useState(null);
   const [stateId, setStateId] = useState(null);
-  const { cart, subtotal } = useCart();
+  const { cart, subtotal, clearCart } = useCart();
+
+  const navigate = useNavigate();
+
+  const user = useSelector((state) => state.user.user);
+  const userId = user._id;
+
+
+  const handlePayment = async (values) => {
+    const address = {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      phoneNumber: values.phoneNumber,
+      country: values.country,
+      state: values.state,
+      city: values.city,
+      pincode: values.pincode,
+      addressLine1: values.addressLine1,
+      addressLine2: values.addressLine2
+    };
+
+    try {
+      const order = await axios.post('http://localhost:5002/api/user/create-order', { subtotal });
+
+      const options = {
+        key: 'rzp_test_zK3u7sfYV5RQYI',
+        amount: order.data.amount,
+        currency: 'INR',
+        order_id: order.data.id,
+        handler: async function (response) {
+          try {
+            await axios.post('http://localhost:5002/api/user/verify-payment', {
+              razorpayPaymentId: response.razorpay_payment_id,
+              razorpayOrderId: response.razorpay_order_id,
+              razorpaySignature: response.razorpay_signature,
+              cart,
+              userId,
+              address,
+              subtotal
+            });
+            
+            clearCart();
+            navigate('/profile'); 
+            
+          } catch (error) {
+            console.error('Verification error:', error);
+          }
+        },
+        prefill: {
+          name: address.firstName + address.lastName,
+          email: 'customer@example.com',
+          contact: address.phoneNumber,
+        },
+        theme: {
+          color: '#3399cc'
+        }
+      };
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      console.error('Payment error:', error);
+    }
+  };
 
   return (
     <>
@@ -24,7 +89,7 @@ function Billing() {
         <div className="billing-left">
           <Form
             layout="vertical"
-            //   onFinish={onFinish}
+              onFinish={handlePayment}
           >
             <Row gutter={16}>
               <Col span={12} xs={24} sm={24} md={12}>
@@ -160,7 +225,7 @@ function Billing() {
             <div className="cart-products">
               {cart?.map((item) => (
                 <div key={item.id} className="cart-product">
-                  <div className="img-container"><img src={prod} alt="" /></div>
+                  <div className="img-container"><img src={`https://raw.githubusercontent.com/Gurshaan-1/photos/main/assets/${item.id}/${item.id}_1.jpg`} alt="" /></div>
                   <div className="prod-details">
                     <span className="name">{item.title}</span>
                     <div className="cart-buttons">

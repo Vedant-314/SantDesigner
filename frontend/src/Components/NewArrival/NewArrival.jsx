@@ -35,22 +35,20 @@ const NewArrival = () => {
 
         const productData = await productResponse.json();
 
-        // Map product data with image URLs
         const updatedProductData = productData.map((product) => {
-          // Match product image based on product name or SKU
           const matchingImage = imageData.find((image) =>
             image.name.includes(product.SKU)
           );
 
           return {
-            ...product, // Keep product details (name, price, etc.)
+            ...product,
             imageUrl: matchingImage
               ? `https://raw.githubusercontent.com/Gurshaan-1/photos/main/assets/${matchingImage.name}/${matchingImage.name}_1.jpg`
-              : "", // Fallback image if not found
+              : "", 
           };
         });
 
-        setProducts(updatedProductData); // Set products with images
+        setProducts(updatedProductData); 
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -70,7 +68,7 @@ const NewArrival = () => {
                 hoverable
                 style={{ marginTop: 16, marginLeft: 16, marginRight: 16 }}
                 cover={<img alt={product.name} src={product.imageUrl} />}
-                onClick={() => navigate(`/product/${product.SKU}`)} // Pass product ID
+                onClick={() => navigate(`/product/${product.SKU}`)}
               >
                 <Meta
                   className="meta"

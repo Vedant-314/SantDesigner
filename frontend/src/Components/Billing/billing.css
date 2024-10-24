@@ -109,6 +109,11 @@
     justify-content: space-between;
     align-items: center;
   }
+
+  .subtotal{
+    display: flex;
+    gap: 10px;
+  }
   
   .subtotal .text {
     font-size: 18px;

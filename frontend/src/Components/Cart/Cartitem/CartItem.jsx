@@ -11,7 +11,7 @@ const CartItem = () => {
       {cart?.map((item) => (
         <div key={item.id} className="cart-product">
           <div className="img-container">
-            <img src={prod} alt="" />
+            <img src={`https://raw.githubusercontent.com/Gurshaan-1/photos/main/assets/${item.id}/${item.id}_1.jpg`} alt="" />
           </div>
           <div className="prod-details">
             <span className="name">{item.title}</span>

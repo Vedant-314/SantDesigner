@@ -3,6 +3,10 @@
   padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .arrival-container{
     display: flex;
     align-items: center;

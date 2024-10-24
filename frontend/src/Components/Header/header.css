@@ -128,7 +128,6 @@ a{
 @media screen and (max-width: 600px){
     .header-container{
         justify-content: space-around;
-        /* padding-left: 10px; */
     }
     .middle{
         display: none;

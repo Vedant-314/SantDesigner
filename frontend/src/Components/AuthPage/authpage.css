@@ -2,10 +2,10 @@
   height: 80vh;
   display: flex;
   align-items: center;
-  background-image: url("../../assets/loginBackGround.png");
+  background-image: url("../../assets/loginBackGround.jpg");
   background-repeat: no-repeat;
   background-size:cover;
-  /* background-position: center; */
+  background-position: center;
   justify-content: center;
 }
 
@@ -14,6 +14,7 @@
   padding: 10px;
   border-radius: 5px;
   background-color: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .authentication .card-title {
@@ -39,7 +40,7 @@
 }
 
 .primary-button:hover {
-  background-color: #0056b3; /* darker shade on hover */
+  background-color: #0056b3;
 }
 
 .anchor {

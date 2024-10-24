@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BsCart2 } from "react-icons/bs";
-import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
+import { Link, useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
 import { CiLogout } from "react-icons/ci";
@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../../redux/userSlice";
 import "./header.css";
 import Cart from "../Cart/Cart";
+import { useCart } from "../../../utils/context";
+
 
 function Header() {
   const [showCart, setShowCart] = useState(false);
@@ -16,6 +18,9 @@ function Header() {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { cart } = useCart();
+
 
   const handleLogout = () => {
     localStorage.clear();
@@ -34,7 +39,7 @@ function Header() {
           )}
         </div>
         <div className="left">
-          <h2>Sant Designers</h2>
+          <h2>Sant Designer</h2>
         </div>
         <div className="middle">
           <ul>
@@ -59,6 +64,7 @@ function Header() {
           <span className="user-name">{user ? user.name : "Guest"}</span>
           <span className="cart-icon">
             <BsCart2 onClick={() => setShowCart(true)} />
+            {!!cart.length && <span>{cart.length}</span>}
           </span>
           {user && (
             <div onClick={handleLogout}>

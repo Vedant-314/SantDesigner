@@ -8,26 +8,6 @@ import "./authpage.css"
 
 function Login() {
 
-//   const onFinish = async(values) =>{
-//     try{
-//       dispatch(showLoading())
-//       const response = await axios.post('/api/user/login', values);
-//       dispatch(hideLoading())
-//       if(response.data.success){
-//         toast.success(response.data.message);
-//         toast("Redirecting to Home page!");
-//         localStorage.setItem("token", response.data.data);
-//         navigate("/");
-//       }
-//       else{
-//         toast.error(response.data.message);
-//       }
-//     } catch(error){
-//       dispatch(hideLoading())
-//       toast.error("Something went wrong!");
-//     }
-//   }
-
 const navigate = useNavigate();
 
 const onFinish = async(values) =>{
@@ -49,7 +29,7 @@ const onFinish = async(values) =>{
 
   return (
     <div className='authentication'>
-      <div className='authentication-form card p-3'>
+      <div className='authentication-form'>
         <h1 className='card-title'>Welcome Back</h1>
         <Form layout='vertical' onFinish={onFinish}>
             <Form.Item label='Email' name='email'>
