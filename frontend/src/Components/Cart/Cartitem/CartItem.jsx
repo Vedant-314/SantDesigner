@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { MdClose } from "react-icons/md";
-import prod from "../../../assets/slider1.jpg";
 import "./cartitem.css";
 import { useCart } from "../../../../utils/context";
 

@@ -2,7 +2,7 @@ import React from "react";
 import { BsCartX } from "react-icons/bs";
 import { MdClose } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import CartItem from "./Cartitem/Cartitem";
+import CartItem from "./Cartitem/CartItem";
 import { useCart } from "../../../utils/context";
 import "./cart.css";
 
