@@ -14,7 +14,7 @@ function Profile() {
     const fetchOrders = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5002/api/user/orders/${user._id}`
+          `/api/user/orders/${user._id}`
         );
         setOrders(response.data);
       } catch (error) {

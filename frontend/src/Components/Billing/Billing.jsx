@@ -40,7 +40,7 @@ function Billing() {
 
     try {
       const order = await axios.post(
-        "http://localhost:5002/api/user/create-order",
+        "/api/user/create-order",
         { subtotal }
       );
 
@@ -51,7 +51,7 @@ function Billing() {
         order_id: order.data.id,
         handler: async function (response) {
           try {
-            await axios.post("http://localhost:5002/api/user/verify-payment", {
+            await axios.post("/api/user/verify-payment", {
               razorpayPaymentId: response.razorpay_payment_id,
               razorpayOrderId: response.razorpay_order_id,
               razorpaySignature: response.razorpay_signature,

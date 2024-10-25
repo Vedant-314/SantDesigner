@@ -16,6 +16,11 @@ import PublicRoute from "./Components/PublicRoute";
 import AllArrivals from "./Components/AllArrivals/AllArrivals";
 import Profile from "./Components/Profile/Profile";
 
+import axios from "axios";
+
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+
+
 function App() {
   return (
     <>

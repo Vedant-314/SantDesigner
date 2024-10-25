@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, Col, Row } from "antd";
 import { useNavigate } from "react-router-dom";
-// import "./allArrival.css";
+import axios from "axios";
 
 const NewArrival = () => {
   const [products, setProducts] = useState([]);
@@ -11,28 +11,15 @@ const NewArrival = () => {
   useEffect(() => {
     const fetchProductImages = async () => {
       try {
-        const imageResponse = await fetch(
+        const imageResponse = await axios.get(
           "https://api.github.com/repos/Gurshaan-1/photos/contents/assets"
         );
+        const imageData = imageResponse.data;
 
-        if (!imageResponse.ok) {
-          throw new Error(
-            "Failed to fetch images: " + imageResponse.statusText
-          );
-        }
-
-        const imageData = await imageResponse.json();
-
-        const productResponse = await fetch(
-          "http://localhost:5002/api/products/get-products"
+        const productResponse = await axios.get(
+          "/api/products/get-products"
         );
-        if (!productResponse.ok) {
-          throw new Error(
-            "Failed to fetch products: " + productResponse.statusText
-          );
-        }
-
-        const productData = await productResponse.json();
+        const productData = productResponse.data;
 
         const updatedProductData = productData.map((product) => {
           const matchingImage = imageData.find((image) =>
@@ -40,14 +27,14 @@ const NewArrival = () => {
           );
 
           return {
-            ...product, // Keep product details (name, price, etc.)
+            ...product, 
             imageUrl: matchingImage
               ? `https://raw.githubusercontent.com/Gurshaan-1/photos/main/assets/${matchingImage.name}/${matchingImage.name}_1.jpg`
-              : "", // Fallback image if not found
+              : "", 
           };
         });
 
-        setProducts(updatedProductData); // Set products with images
+        setProducts(updatedProductData); 
       } catch (error) {
         console.error("Error fetching data:", error);
       }

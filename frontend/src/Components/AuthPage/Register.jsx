@@ -12,7 +12,7 @@ function Register() {
   const onFinish = async (values) => {
     try {
       const response = await axios.post(
-        "http://localhost:5002/api/user/register",
+        "/api/user/register",
         values
       );
       if (response.data.success) {

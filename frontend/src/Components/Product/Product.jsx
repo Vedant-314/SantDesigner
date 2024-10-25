@@ -30,7 +30,7 @@ function Product() {
     const fetchProductDetails = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5002/api/products/sku/${id}`
+          `/api/products/sku/${id}`
         );
         const data = await response.json();
 

@@ -12,7 +12,7 @@ function Login() {
   const onFinish = async (values) => {
     try {
       const response = await axios.post(
-        "http://localhost:5002/api/user/login",
+        "/api/user/login",
         values
       );
       if (response.data.success) {
