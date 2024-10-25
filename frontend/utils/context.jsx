@@ -134,7 +134,7 @@ export const CartProvider = ({ children }) => {
   };
 
   const clearCart = () => {
-    dispatch({ type: 'CLEAR_CART' });
+    dispatch({ type: "CLEAR_CART" });
   };
 
   const removeItem = (itemId) => {

@@ -12,7 +12,7 @@ function Cart({ setShowCart }) {
   const navigate = useNavigate();
 
   const handleCheckout = () => {
-    setShowCart(false)
+    setShowCart(false);
     navigate("/checkout");
   };
 

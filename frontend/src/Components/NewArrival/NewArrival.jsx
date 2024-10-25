@@ -12,8 +12,7 @@ const NewArrival = () => {
     const fetchProductImages = async () => {
       try {
         const imageResponse = await fetch(
-          "https://api.github.com/repos/Gurshaan-1/photos/contents/assets",
-         
+          "https://api.github.com/repos/Gurshaan-1/photos/contents/assets"
         );
 
         if (!imageResponse.ok) {
@@ -44,11 +43,11 @@ const NewArrival = () => {
             ...product,
             imageUrl: matchingImage
               ? `https://raw.githubusercontent.com/Gurshaan-1/photos/main/assets/${matchingImage.name}/${matchingImage.name}_1.jpg`
-              : "", 
+              : "",
           };
         });
 
-        setProducts(updatedProductData); 
+        setProducts(updatedProductData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

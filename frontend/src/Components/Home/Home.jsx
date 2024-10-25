@@ -5,8 +5,8 @@ import NewArrival from "../NewArrival/NewArrival";
 function Home() {
   return (
     <>
-      <Slider/>
-      <NewArrival/>
+      <Slider />
+      <NewArrival />
     </>
   );
 }

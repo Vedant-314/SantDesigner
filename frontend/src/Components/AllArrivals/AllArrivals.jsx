@@ -4,17 +4,15 @@ import { useNavigate } from "react-router-dom";
 // import "./allArrival.css";
 
 const NewArrival = () => {
-  const [products, setProducts] = useState([]); 
+  const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   const { Meta } = Card;
 
   useEffect(() => {
     const fetchProductImages = async () => {
       try {
-        
         const imageResponse = await fetch(
-          "https://api.github.com/repos/Gurshaan-1/photos/contents/assets",
-          
+          "https://api.github.com/repos/Gurshaan-1/photos/contents/assets"
         );
 
         if (!imageResponse.ok) {
@@ -25,7 +23,6 @@ const NewArrival = () => {
 
         const imageData = await imageResponse.json();
 
-        
         const productResponse = await fetch(
           "http://localhost:5002/api/products/get-products"
         );

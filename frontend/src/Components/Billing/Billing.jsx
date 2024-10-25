@@ -15,7 +15,6 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-
 function Billing() {
   const [countryId, setCountryId] = useState(null);
   const [stateId, setStateId] = useState(null);
@@ -25,7 +24,6 @@ function Billing() {
 
   const user = useSelector((state) => state.user.user);
   const userId = user._id;
-
 
   const handlePayment = async (values) => {
     const address = {
@@ -37,49 +35,51 @@ function Billing() {
       city: values.city,
       pincode: values.pincode,
       addressLine1: values.addressLine1,
-      addressLine2: values.addressLine2
+      addressLine2: values.addressLine2,
     };
 
     try {
-      const order = await axios.post('http://localhost:5002/api/user/create-order', { subtotal });
+      const order = await axios.post(
+        "http://localhost:5002/api/user/create-order",
+        { subtotal }
+      );
 
       const options = {
-        key: 'rzp_test_zK3u7sfYV5RQYI',
+        key: "rzp_test_zK3u7sfYV5RQYI",
         amount: order.data.amount,
-        currency: 'INR',
+        currency: "INR",
         order_id: order.data.id,
         handler: async function (response) {
           try {
-            await axios.post('http://localhost:5002/api/user/verify-payment', {
+            await axios.post("http://localhost:5002/api/user/verify-payment", {
               razorpayPaymentId: response.razorpay_payment_id,
               razorpayOrderId: response.razorpay_order_id,
               razorpaySignature: response.razorpay_signature,
               cart,
               userId,
               address,
-              subtotal
+              subtotal,
             });
-            
+
             clearCart();
-            navigate('/profile'); 
-            
+            navigate("/profile");
           } catch (error) {
-            console.error('Verification error:', error);
+            console.error("Verification error:", error);
           }
         },
         prefill: {
           name: address.firstName + address.lastName,
-          email: 'customer@example.com',
+          email: "customer@example.com",
           contact: address.phoneNumber,
         },
         theme: {
-          color: '#3399cc'
-        }
+          color: "#3399cc",
+        },
       };
       const rzp = new window.Razorpay(options);
       rzp.open();
     } catch (error) {
-      console.error('Payment error:', error);
+      console.error("Payment error:", error);
     }
   };
 
@@ -87,10 +87,7 @@ function Billing() {
     <>
       <div className="billing-container">
         <div className="billing-left">
-          <Form
-            layout="vertical"
-              onFinish={handlePayment}
-          >
+          <Form layout="vertical" onFinish={handlePayment}>
             <Row gutter={16}>
               <Col span={12} xs={24} sm={24} md={12}>
                 <Form.Item
@@ -225,11 +222,16 @@ function Billing() {
             <div className="cart-products">
               {cart?.map((item) => (
                 <div key={item.id} className="cart-product">
-                  <div className="img-container"><img src={`https://raw.githubusercontent.com/Gurshaan-1/photos/main/assets/${item.id}/${item.id}_1.jpg`} alt="" /></div>
+                  <div className="img-container">
+                    <img
+                      src={`https://raw.githubusercontent.com/Gurshaan-1/photos/main/assets/${item.id}/${item.id}_1.jpg`}
+                      alt=""
+                    />
+                  </div>
                   <div className="prod-details">
                     <span className="name">{item.title}</span>
                     <div className="cart-buttons">
-                        <p>Quantity:</p>
+                      <p>Quantity:</p>
                       <span>{item.quantity}</span>
                     </div>
                     <div className="text">

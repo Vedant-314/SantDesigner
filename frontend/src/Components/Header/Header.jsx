@@ -10,7 +10,6 @@ import "./header.css";
 import Cart from "../Cart/Cart";
 import { useCart } from "../../../utils/context";
 
-
 function Header() {
   const [showCart, setShowCart] = useState(false);
   const [clicked, setClicked] = useState(false);
@@ -20,7 +19,6 @@ function Header() {
   const navigate = useNavigate();
 
   const { cart } = useCart();
-
 
   const handleLogout = () => {
     localStorage.clear();

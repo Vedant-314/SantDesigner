@@ -52,12 +52,10 @@ function Product() {
   }, [id]);
 
   useEffect(() => {
-
     const fetchProductImages = async () => {
       try {
         const response = await fetch(
-          `https://api.github.com/repos/Gurshaan-1/photos/contents/assets/${id}`,
-        
+          `https://api.github.com/repos/Gurshaan-1/photos/contents/assets/${id}`
         );
         const data = await response.json();
 

@@ -4,7 +4,7 @@
   align-items: center;
   background-image: url("../../assets/loginBackGround.jpg");
   background-repeat: no-repeat;
-  background-size:cover;
+  background-size: cover;
   background-position: center;
   justify-content: center;
 }
@@ -20,7 +20,7 @@
 .authentication .card-title {
   font-size: 1.5rem;
   font-weight: bold;
-  background-color: #F6F1F1;
+  background-color: #f6f1f1;
   color: black;
   max-width: max-content;
   margin-bottom: 20px;
@@ -29,7 +29,7 @@
 }
 
 .primary-button {
-  background-color: #F6F1F1; 
+  background-color: #f6f1f1;
   color: black;
   padding: 0.5rem 1rem;
   border: none;
