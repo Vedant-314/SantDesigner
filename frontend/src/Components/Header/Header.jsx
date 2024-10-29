@@ -48,7 +48,7 @@ function Header() {
               <Link to="/idols">Idols</Link>
             </li>
             <li>
-              <Link to="/custom">Customised Designs</Link>
+              <Link to="/custom">Customised Shoes</Link>
             </li>
             <li>
               <Link to="/about">About</Link>

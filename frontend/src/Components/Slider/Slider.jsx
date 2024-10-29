@@ -30,7 +30,7 @@ function Slider() {
             </Link>
           </div>
         </div>
-        <div className="slider-content1">
+        <div className="slider-content2">
           <div className="slider-text">
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos,

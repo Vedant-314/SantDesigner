@@ -12,6 +12,7 @@ import "./product.css";
 import { useCart } from "../../../utils/context";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 function Product() {
   const { id } = useParams();
@@ -29,10 +30,8 @@ function Product() {
 
     const fetchProductDetails = async () => {
       try {
-        const response = await fetch(
-          `/api/products/sku/${id}`
-        );
-        const data = await response.json();
+        const response = await axios.get(`/api/products/sku/${id}`);
+        const data = response.data;
 
         if (data) {
           setProduct(data);
@@ -42,7 +41,7 @@ function Product() {
         }
       } catch (error) {
         console.error("Error fetching product details:", error);
-        setProduct(null); // Handle error
+        setProduct(null);
       } finally {
         setLoading(false);
       }
@@ -54,10 +53,10 @@ function Product() {
   useEffect(() => {
     const fetchProductImages = async () => {
       try {
-        const response = await fetch(
+        const response = await axios.get(
           `https://api.github.com/repos/Gurshaan-1/photos/contents/assets/${id}`
         );
-        const data = await response.json();
+        const data = response.data;
 
         // Check if data is an array and map it to get image/video URLs
         if (Array.isArray(data)) {
@@ -79,7 +78,6 @@ function Product() {
     fetchProductImages(); // Fetch images for the product
   }, [id]);
 
-  // Check if loading or product is null
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -114,7 +112,6 @@ function Product() {
         modules={[EffectFade, Navigation, Pagination, Autoplay]}
         className="mySwiper"
       >
-        {/* Ensure productImages exists and is not empty */}
         {productImages && productImages.length > 0 ? (
           productImages.map((media, index) => (
             <SwiperSlide key={index}>

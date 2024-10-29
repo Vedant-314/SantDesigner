@@ -17,6 +17,19 @@
   height: 500px;
 }
 
+.banner-container .slider-content2 {
+  background-image: url("../../assets/handcrafted.png");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: #f6f1f1;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 500px;
+}
+
 .slider-text {
   height: 500px;
   display: flex;

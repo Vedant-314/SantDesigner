@@ -104,7 +104,7 @@ export const CartProvider = ({ children }) => {
       if (user) {
         try {
           const response = await axios.post(
-            "http://localhost:5002/api/user/update-cart",
+            "/api/user/update-cart",
             {
               userId: user._id,
               cart: state.cart,

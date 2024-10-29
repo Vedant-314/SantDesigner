@@ -1,0 +1,14 @@
+.custom-container{
+    margin: 0;
+    padding: 0;
+}
+
+.custom-container .custom-banner{
+    height: 500px;
+    width: 100%;
+}
+
+.custom-container .custom-banner img{
+    height: 100%;
+    width: 100%;
+}
