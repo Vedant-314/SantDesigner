@@ -6,6 +6,7 @@ require('dotenv').config();
 
 const productRoutes = require('./routes/products')
 const userRoute = require("./routes/user")
+const orderRoutes = require("./routes/order")
 const Product = require('./models/Product')
 
 const PORT = process.env.PORT || process.env.API_PORT;
@@ -16,6 +17,7 @@ app.use(cors());
 
 app.use('/api/products', productRoutes);
 app.use('/api/user',userRoute);
+app.use("/api/admin", orderRoutes);
 
 const server = http.createServer(app);
 

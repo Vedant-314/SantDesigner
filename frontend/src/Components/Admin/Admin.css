@@ -1,0 +1,227 @@
+/* Admin.css */
+
+/* Container styling to center content */
+.order-list-container {
+  max-width: 100%;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+/* Table Styling */
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.order-table th, .order-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  word-wrap: break-word;
+  vertical-align: top;
+}
+
+.order-table th {
+  background-color: #4CAF50; /* Header background color */
+  color: white;
+  font-weight: bold;
+}
+
+.order-table td {
+  background-color: #f9f9f9;
+}
+
+/* Responsive styling to fit table within screen */
+.order-table-container {
+  max-height: 75vh;
+  overflow-y: auto;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+/* Description styling for JSON objects */
+.desc-list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.desc-list li {
+  list-style-type: disc;
+}
+
+/* Admin.css */
+
+.order-list-container {
+  max-width: 100%;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.order-table th, .order-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.order-table th {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+}
+
+.desc-list {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.desc-list li {
+  list-style-type: disc;
+  margin-bottom: 4px;
+}
+
+.desc-list pre {
+  display: inline-block;
+  margin: 0;
+  font-size: 0.9em;
+  color: #555;
+}
+/* Admin.css */
+
+.order-list-container {
+  max-width: 100%;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+}
+
+.order-table th,
+.order-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-right: 1px solid #ddd; /* Vertical line between columns */
+}
+
+.order-table th {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+}
+
+.order-table th:last-child,
+.order-table td:last-child {
+  border-right: none; /* Remove border on the last column */
+}
+
+.order-table tr {
+  border-bottom: 1px solid #ddd; /* Horizontal line between rows */
+}
+
+.desc-list {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.desc-list li {
+  list-style-type: disc;
+  margin-bottom: 4px;
+}
+
+.desc-list pre {
+  display: inline-block;
+  margin: 0;
+  font-size: 0.9em;
+  color: #555;
+}
+/* Admin.css */
+
+.order-list-container {
+  max-width: 100%;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+}
+
+.order-table th,
+.order-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-right: 1px solid #ddd; /* Vertical line between columns */
+  vertical-align: top;
+}
+
+.order-table th {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+}
+
+.order-table th:last-child,
+.order-table td:last-child {
+  border-right: none; /* Remove border on the last column */
+}
+
+.order-table tr {
+  border-bottom: 1px solid #ddd; /* Horizontal line between rows */
+}
+
+.order-table td {
+  max-width: 200px; /* Set a maximum width for cells to prevent overflow */
+  word-wrap: break-word; /* Ensure long content wraps within cell */
+}
+
+.order-table td:nth-child(5) {
+  max-width: 300px; /* Specific max width for the Description column */
+}
+
+.desc-list {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.desc-list li {
+  list-style-type: disc;
+  margin-bottom: 4px;
+}
+
+.desc-list pre {
+  display: inline-block;
+  margin: 0;
+  font-size: 0.9em;
+  color: #555;
+  white-space: pre-wrap; /* Allow JSON formatting to wrap lines */
+  word-wrap: break-word;
+}
+.order-status-dropdown {
+  padding: 8px; /* Add padding for better touch targets */
+  border: 1px solid #ccc; /* Light border */
+  border-radius: 4px; /* Rounded corners */
+  background-color: #fff; /* White background */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: border-color 0.3s; /* Transition for border color */
+}
+
+.order-status-dropdown:focus {
+  border-color: #007bff; /* Change border color on focus */
+  outline: none; /* Remove default outline */
+}
+
+.order-status-dropdown option {
+  padding: 8px; /* Add padding for options */
+}

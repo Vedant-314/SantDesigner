@@ -16,6 +16,7 @@ import PublicRoute from "./Components/PublicRoute";
 import AllArrivals from "./Components/AllArrivals/AllArrivals";
 import Profile from "./Components/Profile/Profile";
 import CustomDesign from "./Components/CustomDesign/CustomDesign";
+import Admin from "./Components/Admin/Admin";
 
 
 function App() {
@@ -88,6 +89,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <CustomDesign />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin1234"
+              element={
+                <ProtectedRoute>
+                  <Admin />
                 </ProtectedRoute>
               }
             />
