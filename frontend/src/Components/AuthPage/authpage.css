@@ -53,3 +53,30 @@
 .anchor:hover {
   text-decoration: underline;
 }
+
+.card-title {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.form-item {
+  margin-bottom: 10px;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.input-group .ant-input {
+  flex: 1;
+}
+
+.icon-success {
+  color: green;
+  font-size: 24px;
+  margin-left: 8px;
+}

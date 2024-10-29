@@ -7,10 +7,20 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const crypto = require('crypto');
 const authMiddleware = require("../middlewares/authMiddleware");
+const nodemailer = require("nodemailer");
+const otpMap = new Map();
 
 const razorpay = new Razorpay({
   key_id: process.env.KEY_ID,
   key_secret: process.env.KEY_SECRET
+});
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASSWORD,
+  },
 });
 
 router.post("/register", async (req, res) => {
@@ -190,6 +200,39 @@ router.get('/orders/:userId', async (req, res) => {
   } catch (error) {
       console.error('Error fetching orders:', error);
       res.status(500).json({ message: 'Server error.' });
+  }
+});
+
+router.post('/send-otp', async (req, res) => {
+  const { email } = req.body;
+  const otp = crypto.randomInt(100000, 999999); // 6-digit OTP
+
+  otpMap.set(email, { otp, expires: Date.now() + 60 * 1000 }); // Store OTP with 1 min expiration
+
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: "Your OTP Code",
+    text: `Your OTP code is ${otp}`,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    res.json({ success: true, message: "OTP sent to email" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Failed to send OTP" });
+  }
+});
+
+router.post('/verify-otp', async (req, res) => {
+  const { email, otp } = req.body;
+  const otpData = otpMap.get(email);
+
+  if (otpData && otpData.otp === parseInt(otp) && Date.now() < otpData.expires) {
+    otpMap.delete(email); 
+    res.json({ success: true, message: "OTP verified" });
+  } else {
+    res.status(400).json({ success: false, message: "Invalid or expired OTP" });
   }
 });
 
