@@ -24,6 +24,7 @@ function Billing() {
 
   const user = useSelector((state) => state.user.user);
   const userId = user._id;
+  const userName = user.name;
 
   const handlePayment = async (values) => {
     const address = {
@@ -57,6 +58,7 @@ function Billing() {
               razorpaySignature: response.razorpay_signature,
               cart,
               userId,
+              userName,
               address,
               subtotal,
             });

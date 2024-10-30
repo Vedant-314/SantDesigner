@@ -122,6 +122,10 @@ a {
 .user-name {
   font-size: 15px;
   margin-right: 10px;
+  cursor: pointer;
+}
+.user-name :hover{
+  transition: opacity 0.5s ease; /* Add transition */
 }
 
 @media screen and (max-width: 600px) {

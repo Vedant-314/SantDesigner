@@ -7,16 +7,19 @@ import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const [orders, setOrders] = useState([]);
+  const [Loading, setLoading] = useState(false);
   const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchOrders = async () => {
+      setLoading(true);
       try {
         const response = await axios.get(
           `/api/user/orders/${user._id}`
         );
         setOrders(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.error("Error fetching orders:", error);
       } finally {

@@ -12,6 +12,7 @@ import "./product.css";
 import { useCart } from "../../../utils/context";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 import axios from "axios";
 
 function Product() {
@@ -20,10 +21,10 @@ function Product() {
   const { addItem } = useCart();
   const user = useSelector((state) => state.user.user);
 
-  const [product, setProduct] = useState(null); // Product state
-  const [productImages, setProductImages] = useState(null); // Product state
-  const [loading, setLoading] = useState(true); // Loading state
-  const [isPlaying, setIsPlaying] = useState(false); // State to track if video is playing
+  const [product, setProduct] = useState(null);
+  const [productImages, setProductImages] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -58,24 +59,23 @@ function Product() {
         );
         const data = response.data;
 
-        // Check if data is an array and map it to get image/video URLs
         if (Array.isArray(data)) {
-          const media = data.map((item) => item.download_url); // Extracting URLs
+          const media = data.map((item) => item.download_url);
           setProductImages(media);
-          console.log("Fetched media:", media); // Log fetched media URLs
+          console.log("Fetched media:", media);
         } else {
           console.error("Expected an array but received:", data);
           setProductImages(null);
         }
       } catch (error) {
         console.error("Error fetching product media:", error);
-        setProductImages(null); // Set to null on error
+        setProductImages(null);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchProductImages(); // Fetch images for the product
+    fetchProductImages();
   }, [id]);
 
   if (loading) {
@@ -83,22 +83,33 @@ function Product() {
   }
 
   if (!product) {
-    return <div>Product not found</div>; // Handle case where product data is not found
+    return <div>Product not found</div>;
   }
 
   const handleVideoClick = () => {
-    setIsPlaying(true); // Set playing state to true when video is clicked
+    setIsPlaying(true);
   };
 
   const handleVideoEnd = () => {
-    setIsPlaying(false); // Reset playing state when video ends
+    setIsPlaying(false);
+  };
+
+  const handleAddToCart = () => {
+    addItem({
+      name: product.Title,
+      price: product["Selling Price"],
+      quantity: 1,
+      id: id,
+      truth: true,
+    });
+    toast.success(`${product.Title} has been added to your cart!`);
   };
 
   return (
     <div className="product-container">
       <Swiper
         spaceBetween={30}
-        slidesPerView={3} // Change to 1 for better visibility of images/videos
+        slidesPerView={3}
         navigation={true}
         centeredSlides={true}
         pagination={{
@@ -158,7 +169,6 @@ function Product() {
             </h2>
             <p>
               <h4>
-                {" "}
                 <b>Price :</b> ₹ {product["Selling Price"]}
               </h4>
               <h4>
@@ -178,17 +188,7 @@ function Product() {
               </h4>
             </p>
             {user ? (
-              <button
-                onClick={() =>
-                  addItem({
-                    name: product.Title,
-                    price: product["Selling Price"], // Ensure you're using the right property
-                    quantity: 1,
-                    id: id,
-                    truth: true,
-                  })
-                }
-              >
+              <button onClick={handleAddToCart}>
                 <BsCart /> Add to Cart
               </button>
             ) : (

@@ -1,104 +1,139 @@
+import { Table, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Admin.css";
 
-const Admin = () => {
+const { Option } = Select;
+
+function Admin() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchOrders = async () => {
+    const fetchAllOrders = async () => {
       try {
-        const response = await axios.get("/api/admin/orders");
+        const response = await axios.get(`/api/admin/orders`);
         setOrders(response.data);
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
+        // console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching all orders:", error);
+      } finally {
         setLoading(false);
       }
     };
 
-    fetchOrders();
+    fetchAllOrders();
   }, []);
 
-  const handleStatusChange = async (orderId, newStatus) => {
+  const updateOrderStatus = async (orderId, status) => {
     try {
-      // Optionally, make an API call to update the order status on the server
-      await axios.patch(`/api/admin/orders/${orderId}`, { status: newStatus });
-      // Update the local state
+      await axios.put(`/api/admin/orders/${orderId}`, { status });
       setOrders((prevOrders) =>
-        prevOrders.map(
-          (order) =>
-            order._id === orderId ? { ...order, state: newStatus } : order // Change 'status' to 'state'
+        prevOrders.map((order) =>
+          order._id === orderId ? { ...order, status } : order
         )
       );
-    } catch (err) {
-      console.error("Failed to update order status", err);
+    } catch (error) {
+      console.error("Error updating order status:", error);
     }
   };
 
-  if (loading) return <p>Loading orders...</p>;
-  if (error) return <p>Error: {error}</p>;
+  const columns = [
+    {
+      title: "S.No.",
+      dataIndex: "serialNumber",
+      key: "serialNumber",
+    },
+    {
+      title: "Orders",
+      dataIndex: "item",
+      key: "item",
+      render: (items) => (
+        <div>
+          {items.map((item, index) => (
+            <div
+              key={index}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "5px",
+              }}
+              className="render"
+            >
+              <img
+                src={`https://raw.githubusercontent.com/Gurshaan-1/photos/main/assets/${item.id}/${item.id}_1.jpg`}
+                alt={item.name}
+                style={{ width: "40px", height: "40px", marginRight: "10px" }}
+              />
+              <span>{item.name}</span>
+            </div>
+          ))}
+        </div>
+      ),
+    },
+    {
+      title: "Customer Details",
+      dataIndex: "customer",
+      key: "customer",
+      render: (customer) => (
+        <div>
+          <p>Customer Name - {customer.userName}</p>
+          {/* <p>{customer.email}</p> */}
+          <p>Customer Phone Number - {customer.phoneNumber}</p>
+        </div>
+      ),
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (status, record) => (
+        <Select
+          defaultValue="Select Status"
+          onChange={(value) => updateOrderStatus(record.key, value)}
+        >
+          <Option value="Pending">Pending</Option>
+          <Option value="Shipped">Shipped</Option>
+          <Option value="Delivered">Delivered</Option>
+          <Option value="Cancelled">Cancelled</Option>
+        </Select>
+      ),
+    },
+    {
+      title: "Amount",
+      dataIndex: "amount",
+      key: "amount",
+      render: (amount) => `₹ ${amount}`,
+    },
+  ];
+
+  const dataSource = orders.map((order, index) => ({
+    key: order._id,
+    serialNumber: index + 1,
+    item: order.desc.items,
+    customer: {userName : order.userName, phoneNumber:order.desc.address.phoneNumber},
+    status: order.status,
+    amount: order.subtotal,
+  }));
 
   return (
-    <div className="order-list-container">
+    <div className="admin-container">
       <center>
-        <h1>All Orders</h1>
+        <h2>All Orders</h2>
       </center>
-      <table className="order-table">
-        <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>Payment ID</th>
-            <th>Username</th>
-            <th>Description</th>
-            <th>Subtotal</th>
-            <th>Order State</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.map((order) => (
-            <tr key={order._id}>
-              <td>{order.razorpayorderid}</td>
-              <td>{order.paymentId}</td>
-              <td>{order.userId?.name || "N/A"}</td>
-              <td>
-                <ul className="desc-list">
-                  {order.desc &&
-                    Object.entries(order.desc).map(([key, value]) => (
-                      <li key={key}>
-                        <strong>{key}:</strong>{" "}
-                        {typeof value === "object" ? (
-                          <pre>{JSON.stringify(value, null, 2)}</pre>
-                        ) : (
-                          value
-                        )}
-                      </li>
-                    ))}
-                </ul>
-              </td>
-              <td>{order.subtotal}</td>
-              <td>
-                <select
-                  value={order.state || "pending"} // Default to "pending" if no state is set
-                  onChange={(e) =>
-                    handleStatusChange(order._id, e.target.value)
-                  }
-                  className="order-status-dropdown"
-                >
-                  <option value="pending">Pending</option>
-                  <option value="shipped">Shipped</option>
-                  <option value="delivered">Delivered</option>
-                  <option value="cancelled">Cancelled</option>
-                </select>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Table
+        className="orders-table"
+        columns={columns}
+        dataSource={dataSource}
+        pagination={false}
+        loading={loading}
+        rowKey="_id"
+      />
+      {orders.length === 0 && !loading && (
+        <div className="empty-state">No orders found.</div>
+      )}
     </div>
   );
-};
+}
 
 export default Admin;

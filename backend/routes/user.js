@@ -154,8 +154,8 @@ router.post('/create-order', async (req, res) => {
 });
 
 router.post('/verify-payment', async (req, res) => {
-  const { razorpayPaymentId, razorpayOrderId, razorpaySignature, cart, userId, address, subtotal } = req.body;
-
+  const { razorpayPaymentId, razorpayOrderId, razorpaySignature, cart, userId, userName , address, subtotal } = req.body;
+  console.log(userName);
   const secret = process.env.KEY_SECRET;
 
   const generatedSignature = crypto.createHmac('sha256', secret)
@@ -168,6 +168,7 @@ router.post('/verify-payment', async (req, res) => {
         paymentId: razorpayPaymentId,
         razorpayorderid: razorpayOrderId,
         userId: userId,
+        userName:userName,
         status: 'Success',
         desc: {
           items: cart,
@@ -189,8 +190,8 @@ router.post('/verify-payment', async (req, res) => {
 router.get('/orders/:userId', async (req, res) => {
   try {
       const userId = req.params.userId;
-      
-      const orders = await Order.find({ userId: userId });
+      // console.log(userId);
+      const orders = await Order.find({ userId :userId});
 
       if (orders.length > 0) {
           res.status(200).json(orders);

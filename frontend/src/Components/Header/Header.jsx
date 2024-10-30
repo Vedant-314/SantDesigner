@@ -25,6 +25,9 @@ function Header() {
     dispatch(logoutUser());
     navigate("/login");
   };
+  const handleprofile= () => {
+    navigate("/profile");
+  };
 
   return (
     <>
@@ -59,7 +62,7 @@ function Header() {
           </ul>
         </div>
         <div className="right">
-          <span className="user-name">{user ? user.name : "Guest"}</span>
+          <span onClick={handleprofile} className="user-name">{user ? user.name : "Guest"}</span>
           <span className="cart-icon">
             <BsCart2 onClick={() => setShowCart(true)} />
             {!!cart.length && <span>{cart.length}</span>}

@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const orderSchema = new mongoose.Schema({
   paymentId: String,
   razorpayorderid: String,
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // Reference to User
+  userId: String,
+  userName:String,
   status: String,
   desc: Object,
   subtotal: Number,

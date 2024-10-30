@@ -2,12 +2,14 @@ import React, { useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import toast from "react-hot-toast";
 import { setUser } from "../../redux/userSlice";
 
-function ProtectedRoute(props) {
+function ProtectedRoute({ children, requiresAdmin = false }) {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const getUser = async () => {
     try {
       const response = await axios.post(
@@ -30,13 +32,20 @@ function ProtectedRoute(props) {
       navigate("/login");
     }
   };
+
   useEffect(() => {
     if (!user) {
       getUser();
     }
   }, [user]);
+
+  // Check if the user is logged in and optionally if they are an admin
   if (localStorage.getItem("token")) {
-    return props.children;
+    if (requiresAdmin && user && !user.isAdmin) {
+      toast.error("You must be an admin");
+      return <Navigate to="/" />; // Redirect to home if not an admin
+    }
+    return children;
   } else {
     return <Navigate to="/login" />;
   }
