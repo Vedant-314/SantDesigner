@@ -34,16 +34,15 @@ function ProtectedRoute({ children, requiresAdmin = false }) {
   };
 
   useEffect(() => {
-    if (!user) {
+    if (localStorage.getItem("token") && !user) {
       getUser();
     }
   }, [user]);
 
-  // Check if the user is logged in and optionally if they are an admin
   if (localStorage.getItem("token")) {
     if (requiresAdmin && user && !user.isAdmin) {
       toast.error("You must be an admin");
-      return <Navigate to="/" />; // Redirect to home if not an admin
+      return <Navigate to="/" />;
     }
     return children;
   } else {

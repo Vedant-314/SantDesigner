@@ -30,9 +30,9 @@ function App() {
             <Route
               path="/"
               element={
-                <ProtectedRoute>
+                <PublicRoute>
                   <Home />
-                </ProtectedRoute>
+                </PublicRoute>
               }
             />
             <Route
@@ -55,9 +55,9 @@ function App() {
             <Route
               path="/product/:id"
               element={
-                <ProtectedRoute>
+                <PublicRoute>
                   <Product />
-                </ProtectedRoute>
+                </PublicRoute>
               }
             />
             <Route
@@ -71,9 +71,9 @@ function App() {
             <Route
               path="/allarrivals"
               element={
-                <ProtectedRoute>
+                <PublicRoute>
                   <AllArrivals />
-                </ProtectedRoute>
+                </PublicRoute>
               }
             />
             <Route
@@ -87,9 +87,9 @@ function App() {
             <Route
               path="/custom"
               element={
-                <ProtectedRoute>
+                <PublicRoute>
                   <CustomDesign />
-                </ProtectedRoute>
+                </PublicRoute>
               }
             />
             <Route
