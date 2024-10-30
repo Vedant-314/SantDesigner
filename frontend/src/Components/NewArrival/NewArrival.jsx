@@ -68,7 +68,7 @@ const NewArrival = () => {
         </Row>
         {products.length > 8 && (
           <div className="view-more-container">
-            <Button onClick={() => navigate("/allarrivals")} type="primary">
+            <Button onClick={() => navigate("/allarrivals")} className="product-btn">
               View More
             </Button>
           </div>

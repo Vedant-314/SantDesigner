@@ -57,7 +57,7 @@ function Header() {
               <Link to="/about">About</Link>
             </li>
             <li>
-              <a href="#contactUs">Contact Us</a>
+              {user?.isAdmin ? <Link to="/admin1234">Admin</Link>  : <a href="#contactUs">Contact Us</a> }
             </li>
           </ul>
         </div>

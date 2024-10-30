@@ -14,7 +14,6 @@ function Admin() {
       try {
         const response = await axios.get(`/api/admin/orders`);
         setOrders(response.data);
-        // console.log(response.data);
       } catch (error) {
         console.error("Error fetching all orders:", error);
       } finally {
@@ -78,8 +77,11 @@ function Admin() {
       render: (customer) => (
         <div>
           <p>Customer Name - {customer.userName}</p>
-          {/* <p>{customer.email}</p> */}
           <p>Customer Phone Number - {customer.phoneNumber}</p>
+          <b>Address</b>
+          <p>{customer.address.addressLine1}</p>
+          <p>{customer.address?.addressLine2}</p>
+          <p>{customer.address.country.name}, {customer.address.state.name}, {customer.address.city.name}</p>
         </div>
       ),
     },
@@ -111,7 +113,7 @@ function Admin() {
     key: order._id,
     serialNumber: index + 1,
     item: order.desc.items,
-    customer: {userName : order.userName, phoneNumber:order.desc.address.phoneNumber},
+    customer: {userName : order.userName, phoneNumber:order.desc.address.phoneNumber, address: order.desc.address},
     status: order.status,
     amount: order.subtotal,
   }));

@@ -1,5 +1,4 @@
 .arrival-container {
-  padding: 20px;
   text-align: center;
 }
 
@@ -43,3 +42,48 @@ button {
 button:hover {
   background-color: #0056b3;
 }
+
+
+.category-avatars {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.avatar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.avatar-item.active,
+.avatar-item:hover {
+  transform: scale(1.1);
+}
+
+.category-name {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #333;
+}
+
+.view-more-container {
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .category-name {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .category-name {
+    font-size: 10px;
+  }
+}
+

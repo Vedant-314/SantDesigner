@@ -35,6 +35,15 @@
   margin-top: 1rem;
 }
 
+.product-btn{
+  border-radius: 0;
+}
+
+.product-btn:hover{
+  color: #fefefe !important;
+  background-color: #050505 !important;
+}
+
 button {
   padding: 10px 20px;
   background-color: #007bff;

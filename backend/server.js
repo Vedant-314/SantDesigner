@@ -21,7 +21,6 @@ app.use("/api/admin", orderRoutes);
 
 const server = http.createServer(app);
 
-// Fetch product details by SKU
 app.get("/api/products/sku/:sku", async (req, res) => {
   try {
     const productSku = req.params.sku;
@@ -33,7 +32,7 @@ app.get("/api/products/sku/:sku", async (req, res) => {
       return res.status(404).json({ message: "Product not found" });
     }
     console.log(product);
-    res.json(product); // Return the full product details as JSON
+    res.json(product);
     
   } catch (error) {
     console.error("Error fetching product by SKU:", error);

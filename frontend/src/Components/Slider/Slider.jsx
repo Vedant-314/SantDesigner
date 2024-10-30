@@ -11,21 +11,9 @@ function Slider() {
         <div className="slider-content1">
           <div className="slider-text">
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos,
-              quisquam?
+            Discover the Luxury of Fine Fabrics - Where Style Meets Comfort
             </p>
-            <Link>
-              <h2>SHOP NOW</h2>
-            </Link>
-          </div>
-        </div>
-        <div className="slider-content1">
-          <div className="slider-text">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos,
-              quisquam?
-            </p>
-            <Link>
+            <Link to='/allarrivals'>
               <h2>SHOP NOW</h2>
             </Link>
           </div>
@@ -33,21 +21,9 @@ function Slider() {
         <div className="slider-content2">
           <div className="slider-text">
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos,
-              quisquam?
+            Step into Artisan Elegance - Handcrafted Shoes with Heart
             </p>
-            <Link>
-              <h2>SHOP NOW</h2>
-            </Link>
-          </div>
-        </div>
-        <div className="slider-content1">
-          <div className="slider-text">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos,
-              quisquam?
-            </p>
-            <Link>
+            <Link to='/custom'>
               <h2>SHOP NOW</h2>
             </Link>
           </div>
