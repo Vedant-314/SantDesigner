@@ -25,7 +25,7 @@ function Header() {
     dispatch(logoutUser());
     navigate("/login");
   };
-  const handleprofile= () => {
+  const handleprofile = () => {
     navigate("/profile");
   };
 
@@ -48,21 +48,24 @@ function Header() {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/idols">Idols</Link>
-            </li>
-            <li>
               <Link to="/custom">Customised Shoes</Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <a href="#contactUs">About Us</a>
             </li>
             <li>
-              {user?.isAdmin ? <Link to="/admin1234">Admin</Link>  : <a href="#contactUs">Contact Us</a> }
+              {user?.isAdmin ? (
+                <Link to="/admin1234">Admin</Link>
+              ) : (
+                <a href="#contactUs">Contact Us</a>
+              )}
             </li>
           </ul>
         </div>
         <div className="right">
-          <span onClick={handleprofile} className="user-name">{user ? user.name : "Guest"}</span>
+          <span onClick={handleprofile} className="user-name">
+            {user ? user.name : "Guest"}
+          </span>
           <span className="cart-icon">
             <BsCart2 onClick={() => setShowCart(true)} />
             {!!cart.length && <span>{cart.length}</span>}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { CartProvider } from "../utils/context";
@@ -20,6 +20,10 @@ import Admin from "./Components/Admin/Admin";
 
 
 function App() {
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  }, [])
+
   return (
     <>
       <Router>

@@ -169,7 +169,8 @@ router.post('/verify-payment', async (req, res) => {
         razorpayorderid: razorpayOrderId,
         userId: userId,
         userName:userName,
-        status: 'Success',
+        paymentStatus: 'Success',
+        paymentMethod: "online",
         desc: {
           items: cart,
           address: address
@@ -184,6 +185,38 @@ router.post('/verify-payment', async (req, res) => {
     }
   } else {
     res.status(400).json({ error: 'Invalid payment signature' });
+  }
+});
+
+router.post("/create-cod-order", async (req, res) => {
+  try {
+    const { cart, userId, userName, address, subtotal } = req.body;
+
+    const newOrder = new Order({
+      userId,
+      userName,
+      paymentMethod: "COD",
+      paymentStatus: "Pending",
+      desc: {
+        items: cart,
+        address: address
+      },
+      subtotal: subtotal + 120, 
+    });
+
+    await newOrder.save();
+
+    res.status(201).json({
+      success: true,
+      message: "COD order created successfully",
+      order: newOrder,
+    });
+  } catch (error) {
+    console.error("Error creating COD order:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to create COD order",
+    });
   }
 });
 

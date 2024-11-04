@@ -5,9 +5,6 @@ import {
   StateSelect,
   CitySelect,
 } from "react-country-state-city";
-
-// import prod from "../../assets/loginBackGround.png"
-
 import "react-country-state-city/dist/react-country-state-city.css";
 import "./billing.css";
 import { useCart } from "../../../utils/context";
@@ -19,69 +16,86 @@ function Billing() {
   const [countryId, setCountryId] = useState(null);
   const [stateId, setStateId] = useState(null);
   const { cart, subtotal, clearCart } = useCart();
-
   const navigate = useNavigate();
-
   const user = useSelector((state) => state.user.user);
-  const userId = user._id;
-  const userName = user.name;
+  const userId = user?._id;
+  const userName = user?.name;
+
+  const [isCOD, setIsCOD] = useState(false);
 
   const handlePayment = async (values) => {
     const address = {
       firstName: values.firstName,
       lastName: values.lastName,
       phoneNumber: values.phoneNumber,
-      country: values.country,
-      state: values.state,
-      city: values.city,
+      country: values.country.name,
+      state: values.state.name,
+      city: values.city.name,
       pincode: values.pincode,
       addressLine1: values.addressLine1,
       addressLine2: values.addressLine2,
     };
 
-    try {
-      const order = await axios.post(
-        "/api/user/create-order",
-        { subtotal }
-      );
+    if (isCOD) {
+      try {
+        await axios.post("/api/user/create-cod-order", {
+          cart,
+          userId,
+          userName,
+          address,
+          subtotal: subtotal,
+          paymentMethod: "COD",
+        });
 
-      const options = {
-        key: "rzp_test_zK3u7sfYV5RQYI",
-        amount: order.data.amount,
-        currency: "INR",
-        order_id: order.data.id,
-        handler: async function (response) {
-          try {
-            await axios.post("/api/user/verify-payment", {
-              razorpayPaymentId: response.razorpay_payment_id,
-              razorpayOrderId: response.razorpay_order_id,
-              razorpaySignature: response.razorpay_signature,
-              cart,
-              userId,
-              userName,
-              address,
-              subtotal,
-            });
+        clearCart();
+        navigate("/profile");
+        alert("Order placed successfully. Pay upon delivery.");
+      } catch (error) {
+        console.error("COD Order error:", error);
+      }
+    } else {
+      try {
+        const order = await axios.post("/api/user/create-order", { subtotal });
 
-            clearCart();
-            navigate("/profile");
-          } catch (error) {
-            console.error("Verification error:", error);
-          }
-        },
-        prefill: {
-          name: address.firstName + address.lastName,
-          email: "customer@example.com",
-          contact: address.phoneNumber,
-        },
-        theme: {
-          color: "#3399cc",
-        },
-      };
-      const rzp = new window.Razorpay(options);
-      rzp.open();
-    } catch (error) {
-      console.error("Payment error:", error);
+        const options = {
+          key: "rzp_test_zK3u7sfYV5RQYI",
+          amount: order.data.amount,
+          currency: "INR",
+          order_id: order.data.id,
+          handler: async function (response) {
+            try {
+              await axios.post("/api/user/verify-payment", {
+                razorpayPaymentId: response.razorpay_payment_id,
+                razorpayOrderId: response.razorpay_order_id,
+                razorpaySignature: response.razorpay_signature,
+                cart,
+                userId,
+                userName,
+                address,
+                subtotal,
+                paymentMethod: "Online",
+              });
+
+              clearCart();
+              navigate("/profile");
+            } catch (error) {
+              console.error("Verification error:", error);
+            }
+          },
+          prefill: {
+            name: address.firstName + " " + address.lastName,
+            email: "customer@example.com",
+            contact: address.phoneNumber,
+          },
+          theme: {
+            color: "#3399cc",
+          },
+        };
+        const rzp = new window.Razorpay(options);
+        rzp.open();
+      } catch (error) {
+        console.error("Payment error:", error);
+      }
     }
   };
 
@@ -137,12 +151,19 @@ function Billing() {
 
             <Row gutter={16}>
               <Col span={12} xs={24} sm={24} md={12}>
-                <Form.Item label="Country" name="country">
+                <Form.Item
+                  label="Country"
+                  name="country"
+                  rules={[
+                    { required: true, message: "Please input the country!" },
+                  ]}
+                >
                   <CountrySelect
                     onChange={(e) => {
                       setCountryId(e.id);
                     }}
                     placeHolder="Select Country"
+                    showFlag = {true}
                   />
                 </Form.Item>
               </Col>
@@ -210,8 +231,21 @@ function Billing() {
             <Row>
               <Col span={24}>
                 <Form.Item>
-                  <Button type="primary" htmlType="submit">
-                    Submit
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    onClick={() => setIsCOD(false)}
+                  >
+                    Pay Online
+                  </Button>
+                  <Button
+                    type="default"
+                    htmlType="submit"
+                    onClick={() => setIsCOD(true)}
+                    disabled={subtotal >= 2000}
+                    style={{ marginLeft: "10px" }}
+                  >
+                    Pay on Delivery (+₹120)
                   </Button>
                 </Form.Item>
               </Col>
@@ -253,7 +287,9 @@ function Billing() {
             <div className="cart-footer">
               <div className="subtotal">
                 <span className="text">SubTotal:</span>
-                <span className="text total">&#8377; {subtotal}</span>
+                <span className="text total">
+                  &#8377; {isCOD ? subtotal + 120 : subtotal}
+                </span>
               </div>
             </div>
           </div>

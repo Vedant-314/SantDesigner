@@ -1,9 +1,10 @@
-import { Table } from "antd";
+import { Table, Tooltip } from "antd";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import "./profile.css";
 import { useNavigate } from "react-router-dom";
+import { CheckCircleTwoTone, ClockCircleOutlined } from "@ant-design/icons";
 
 function Profile() {
   const [orders, setOrders] = useState([]);
@@ -15,11 +16,8 @@ function Profile() {
     const fetchOrders = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(
-          `/api/user/orders/${user._id}`
-        );
+        const response = await axios.get(`/api/user/orders/${user._id}`);
         setOrders(response.data);
-        // console.log(response.data);
       } catch (error) {
         console.error("Error fetching orders:", error);
       } finally {
@@ -76,7 +74,21 @@ function Profile() {
       title: "Amount",
       dataIndex: "amount",
       key: "amount",
-      render: (amount) => `₹ ${amount}`,
+      render: (amount, record) => (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <span>₹ {amount}</span>
+          {console.log(record)}
+          {record.isPaid !== "Pending" ? (
+            <Tooltip title="Paid">
+              <CheckCircleTwoTone twoToneColor="#52c41a" style={{ marginLeft: "8px" }} />
+            </Tooltip>
+          ) : (
+            <Tooltip title="Unpaid">
+              <ClockCircleOutlined style={{ color: "#faad14", marginLeft: "8px" }} />
+            </Tooltip>
+          )}
+        </div>
+      ),
     },
   ];
 
@@ -84,8 +96,9 @@ function Profile() {
     key: order._id,
     serialNumber: index + 1,
     item: order.desc.items,
-    status: order.status,
+    status: order.prodStatus,
     amount: order.subtotal,
+    isPaid: order.paymentStatus,
   }));
 
   const avatarLetter = user?.name.charAt(0).toUpperCase();

@@ -100,6 +100,7 @@ export const CartProvider = ({ children }) => {
   const prevCartRef = useRef(state.cart);
 
   useEffect(() => {
+    
     const syncCartWithBackend = async () => {
       if (user) {
         try {

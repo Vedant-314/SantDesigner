@@ -3,17 +3,19 @@ import { Card, Col, Row, Avatar, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./allArrival.css";
-import nehruJacketImage from "../../assets/nehruJacket.png"
-import shirtImage from "../../assets/shirt.jpeg"
+import nehruJacketImage from "../../assets/nehruJacket.png";
+import shirtImage from "../../assets/shirt.jpeg";
 import premiumImage from "../../assets/premium.jpeg";
+import suitingImage from "../../assets/suiting.jpeg"
 
 const { Meta } = Card;
 const { Text } = Typography;
 
 const categories = [
-  { name: "Nehru Jacket", imageUrl: nehruJacketImage, category: 'NehruJacket' },
-  { name: "Shirt", imageUrl: shirtImage, category: 'shirt' },
-  { name: "Premium Fabric", imageUrl: premiumImage, category: 'PremiumFabric' },
+  { name: "Nehru Jacket", imageUrl: nehruJacketImage, category: "NehruJacket" },
+  { name: "Shirt", imageUrl: shirtImage, category: "shirt" },
+  { name: "Premium Fabric", imageUrl: premiumImage, category: "PremiumFabric" },
+  { name: "Suiting Fabric", imageUrl: suitingImage, category: "suiting" },
 ];
 
 const AllArrivals = () => {
@@ -32,16 +34,27 @@ const AllArrivals = () => {
         const productResponse = await axios.get("/api/products/items");
         const productData = productResponse.data;
 
-        const updatedProductData = productData.map((product) => {
+        const uniqueProductData = Array.from(
+          new Map(productData.map((product) => [product.SKU, product])).values()
+        );
+
+        const updatedProductData = uniqueProductData.map((product) => {
           const matchingImage = imageData.find((image) =>
             image.name.includes(product.SKU)
           );
 
+          {console.log(matchingImage)}
+
+          let imageUrl = "";
+          if (matchingImage) {
+            imageUrl = matchingImage.name.endsWith(".MP4")
+              ? `https://raw.githubusercontent.com/Gurshaan-1/photos/main/assets/${matchingImage.name}/${matchingImage.name}_2.jpg`
+              : `https://raw.githubusercontent.com/Gurshaan-1/photos/main/assets/${matchingImage.name}/${matchingImage.name}_1.jpg`;
+          }
+
           return {
             ...product,
-            imageUrl: matchingImage
-              ? `https://raw.githubusercontent.com/Gurshaan-1/photos/main/assets/${matchingImage.name}/${matchingImage.name}_1.jpg`
-              : "",
+            imageUrl,
           };
         });
 
