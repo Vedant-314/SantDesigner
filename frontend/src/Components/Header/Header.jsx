@@ -9,6 +9,7 @@ import { logoutUser } from "../../../redux/userSlice";
 import "./header.css";
 import Cart from "../Cart/Cart";
 import { useCart } from "../../../utils/context";
+import toast from "react-hot-toast";
 
 function Header() {
   const [showCart, setShowCart] = useState(false);
@@ -22,6 +23,7 @@ function Header() {
 
   const handleLogout = () => {
     localStorage.clear();
+    toast.success("Logged Out Successfully!");
     dispatch(logoutUser());
     navigate("/login");
   };

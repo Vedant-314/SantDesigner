@@ -8,8 +8,8 @@ const orderSchema = new mongoose.Schema({
   paymentStatus: String,
   prodStatus: {
     type: String,
-    enum: ["pending", "shipped", "delivered", "cancelled"],
-    default: "pending",
+    enum: ["Pending", "Shipped", "Delivered", "Cancelled"],
+    default: "Pending",
   },
   desc: Object,
   subtotal: Number,

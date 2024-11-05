@@ -27,6 +27,7 @@ function Admin() {
   const updateOrderStatus = async (orderId, status) => {
     try {
       await axios.put(`/api/admin/orders/${orderId}`, { status });
+    console.log(orderId + status);
       setOrders((prevOrders) =>
         prevOrders.map((order) =>
           order._id === orderId ? { ...order, status } : order
@@ -81,7 +82,10 @@ function Admin() {
           <b>Address</b>
           <p>{customer.address.addressLine1}</p>
           <p>{customer.address?.addressLine2}</p>
-          <p>{customer.address.country.name}, {customer.address.state.name}, {customer.address.city.name}</p>
+          <p>
+            {customer.address.country.name}, {customer.address.state.name},{" "}
+            {customer.address.city.name}
+          </p>
         </div>
       ),
     },
@@ -91,7 +95,7 @@ function Admin() {
       key: "status",
       render: (status, record) => (
         <Select
-          defaultValue="Select Status"
+          defaultValue={status}
           onChange={(value) => updateOrderStatus(record.key, value)}
         >
           <Option value="Pending">Pending</Option>
@@ -113,8 +117,12 @@ function Admin() {
     key: order._id,
     serialNumber: index + 1,
     item: order.desc.items,
-    customer: {userName : order.userName, phoneNumber:order.desc.address.phoneNumber, address: order.desc.address},
-    status: order.status,
+    customer: {
+      userName: order.userName,
+      phoneNumber: order.desc.address.phoneNumber,
+      address: order.desc.address,
+    },
+    status: order.prodStatus,
     amount: order.subtotal,
   }));
 
