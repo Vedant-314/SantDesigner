@@ -31,7 +31,6 @@ html {
 
 .shipping {
   display: flex;
-  /* flex-flow: column; */
 }
 
 .shipping .shipping-card {
@@ -41,6 +40,25 @@ html {
   font-size: 12px;
   margin: 20px;
   gap: 10px;
+}
+
+.spinner-parent{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  background-color: rgb(228, 217, 255, 0.74);
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  color: #273469;
+  z-index: 9999;
+}
+
+.spinner-grow{
+  width: 4rem;
+  height: 4rem;
 }
 
 @media screen and (max-width: 900px) {

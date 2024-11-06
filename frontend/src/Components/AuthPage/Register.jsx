@@ -5,6 +5,9 @@ import { CheckCircleOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import './authpage.css';
+import { hideLoading, showLoading } from '../../../redux/alertSlice';
+import { useDispatch } from "react-redux";
+
 
 function Register() {
   const [isVerified, setIsVerified] = useState(false);
@@ -15,8 +18,11 @@ function Register() {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
+
   const startOtpTimer = () => {
-    setTimer(60); // 1 minute timer
+    setTimer(60); 
     const interval = setInterval(() => {
       setTimer((prev) => {
         if (prev === 1) clearInterval(interval);
@@ -58,7 +64,11 @@ function Register() {
 
   const onFinish = async (values) => {
     try {
+      dispatch(showLoading());
+
       const response = await axios.post("/api/user/register", values);
+      dispatch(hideLoading());
+
       if (response.data.success) {
         toast.success(response.data.message);
         toast("Redirecting to login page!");
@@ -67,6 +77,7 @@ function Register() {
         toast.error(response.data.message);
       }
     } catch (error) {
+      dispatch(hideLoading());
       toast.error("Something went wrong!");
     }
   };

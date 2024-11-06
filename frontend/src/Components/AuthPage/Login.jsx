@@ -7,6 +7,8 @@ import { setUser } from "../../../redux/userSlice";
 
 import "./authpage.css";
 import { useDispatch } from "react-redux";
+import { hideLoading, showLoading } from '../../../redux/alertSlice';
+
 
 function Login() {
   const navigate = useNavigate();
@@ -36,10 +38,12 @@ function Login() {
 
   const onFinish = async (values) => {
     try {
+      dispatch(showLoading())
       const response = await axios.post(
         "/api/user/login",
         values
       );
+      dispatch(hideLoading())
       if (response.data.success) {
         toast.success(response.data.message);
         toast("Redirecting to Home page!");
@@ -50,6 +54,7 @@ function Login() {
         toast.error(response.data.message);
       }
     } catch (error) {
+      dispatch(hideLoading())
       toast.error("Something went wrong!");
     }
   };

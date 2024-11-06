@@ -17,6 +17,7 @@ import AllArrivals from "./Components/AllArrivals/AllArrivals";
 import Profile from "./Components/Profile/Profile";
 import CustomDesign from "./Components/CustomDesign/CustomDesign";
 import Admin from "./Components/Admin/Admin";
+import { useSelector } from "react-redux";
 
 
 function App() {
@@ -24,11 +25,18 @@ function App() {
     window.scrollTo(0, 0);
   }, [])
 
+  const { loading } = useSelector((state) => state.alerts);
+
   return (
     <>
       <Router>
         <CartProvider>
           <Header />
+          {loading && (
+          <div className="spinner-parent">
+            <div class="spinner-grow" role="status"></div>
+          </div>
+          )}
           <Toaster position="top-center" reverseOrder={false} />
           <Routes>
             <Route

@@ -6,14 +6,17 @@ import "./allArrival.css";
 import nehruJacketImage from "../../assets/nehruJacket.png";
 import shirtImage from "../../assets/shirt.jpeg";
 import premiumImage from "../../assets/premium.jpeg";
-import suitingImage from "../../assets/suiting.jpeg"
+import suitingImage from "../../assets/suiting.jpeg";
+import { hideLoading, showLoading } from '../../../redux/alertSlice';
+import { useDispatch } from "react-redux";
+
 
 const { Meta } = Card;
 const { Text } = Typography;
 
 const categories = [
-  { name: "Nehru Jacket", imageUrl: nehruJacketImage, category: "NehruJacket" },
-  { name: "Shirt", imageUrl: shirtImage, category: "shirt" },
+  { name: "Nehru Jacket Fabric", imageUrl: nehruJacketImage, category: "NehruJacket" },
+  { name: "Shirt Fabric", imageUrl: shirtImage, category: "shirt" },
   { name: "Premium Fabric", imageUrl: premiumImage, category: "PremiumFabric" },
   { name: "Suiting Fabric", imageUrl: suitingImage, category: "suiting" },
 ];
@@ -22,17 +25,22 @@ const AllArrivals = () => {
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        dispatch(showLoading());
+        const productResponse = await axios.get("/api/products/items");
+        const productData = productResponse.data;
+
         const imageResponse = await axios.get(
           "https://api.github.com/repos/Gurshaan-1/photos/contents/assets"
         );
         const imageData = imageResponse.data;
 
-        const productResponse = await axios.get("/api/products/items");
-        const productData = productResponse.data;
+        dispatch(hideLoading());
 
         const uniqueProductData = Array.from(
           new Map(productData.map((product) => [product.SKU, product])).values()
@@ -42,8 +50,6 @@ const AllArrivals = () => {
           const matchingImage = imageData.find((image) =>
             image.name.includes(product.SKU)
           );
-
-          {console.log(matchingImage)}
 
           let imageUrl = "";
           if (matchingImage) {
@@ -60,6 +66,7 @@ const AllArrivals = () => {
 
         setProducts(updatedProductData);
       } catch (error) {
+        dispatch(hideLoading());
         console.error("Error fetching data:", error);
       }
     };
