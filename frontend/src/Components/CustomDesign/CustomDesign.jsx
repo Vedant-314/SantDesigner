@@ -15,7 +15,7 @@ function CustomDesign() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const token = process.env.token;
+  const token = import.meta.env.VITE_TOKEN;;
 
 
   useEffect(() => {

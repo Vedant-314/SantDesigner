@@ -12,7 +12,7 @@ const NewArrival = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { Meta } = Card;
-  const token = process.env.token;
+  const token = import.meta.env.VITE_TOKEN;;
 
   useEffect(() => {
     const fetchProductImages = async () => {

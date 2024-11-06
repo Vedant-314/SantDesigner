@@ -23,7 +23,7 @@ function ShoeProd() {
   const [productImages, setProductImages] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
-  const token = process.env.token;
+  const token = import.meta.env.VITE_TOKEN;;
 
   useEffect(() => {
     window.scrollTo(0, 0);
