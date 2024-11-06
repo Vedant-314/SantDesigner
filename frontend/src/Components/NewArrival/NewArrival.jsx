@@ -12,6 +12,7 @@ const NewArrival = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { Meta } = Card;
+  const token = "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";
 
   useEffect(() => {
     const fetchProductImages = async () => {
@@ -24,7 +25,13 @@ const NewArrival = () => {
           const productData = productResponse.data;
 
           const imageResponse = await axios.get(
-            "https://api.github.com/repos/Gurshaan-1/photos/contents/assets"
+            "https://api.github.com/repos/Gurshaan-1/photos/contents/assets",
+            {
+              headers: {
+                Authorization: `token ${token}`,
+                Accept: "application/vnd.github.v3+json"
+              }
+            }
           );
           const imageData = imageResponse.data;
 

@@ -18,6 +18,7 @@ import Profile from "./Components/Profile/Profile";
 import CustomDesign from "./Components/CustomDesign/CustomDesign";
 import Admin from "./Components/Admin/Admin";
 import { useSelector } from "react-redux";
+import ShoeProd from "./Components/ShoeProd/ShoeProd";
 
 
 function App() {
@@ -69,6 +70,14 @@ function App() {
               element={
                 <PublicRoute>
                   <Product />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/shoeproduct/:id"
+              element={
+                <PublicRoute>
+                  <ShoeProd />
                 </PublicRoute>
               }
             />
