@@ -23,7 +23,7 @@ function ShoeProd() {
   const [productImages, setProductImages] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
-  const token = "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";
+  const token = process.env.token;
 
   useEffect(() => {
     window.scrollTo(0, 0);

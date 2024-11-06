@@ -15,7 +15,7 @@ function CustomDesign() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const token = "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";
+  const token = process.env.token;
 
 
   useEffect(() => {

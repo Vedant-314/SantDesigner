@@ -12,7 +12,7 @@ const NewArrival = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { Meta } = Card;
-  const token = "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";
+  const token = process.env.token;
 
   useEffect(() => {
     const fetchProductImages = async () => {
