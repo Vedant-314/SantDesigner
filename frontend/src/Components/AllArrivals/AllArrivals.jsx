@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, Col, Row, Avatar, Typography } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "./allArrival.css";
 import nehruJacketImage from "../../assets/nehruJacket.png";
@@ -26,6 +26,17 @@ const AllArrivals = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const { category } = useParams();
+
+  useEffect(() => {
+    if (category!="all") {
+      setSelectedCategory(category);
+    }
+    else{
+      setSelectedCategory(null);
+    }
+  }, [category]);
 
 
   useEffect(() => {
@@ -96,13 +107,13 @@ const AllArrivals = () => {
       </div>
 
       <div className="arrival">
-        <Row gutter={16}>
+        <Row gutter={8}>
           {filteredProducts.map((product) => (
-            <Col key={product._id} span={6} sm={12} xs={24} md={6}>
+            <Col key={product._id} span={6} sm={12} xs={12} md={6}>
               <Card
                 hoverable
-                style={{ marginTop: 16, marginLeft: 16, marginRight: 16 }}
-                cover={<img alt={product.name} src={product.imageUrl} />}
+                style={{ marginTop: 16, marginLeft: 5, marginRight: 5, borderRadius: 0, }}
+                cover={<img alt={product.name} src={product.imageUrl} className="card-image" />}
                 onClick={() => navigate(`/product/${product.SKU}`)}
               >
                 <Meta

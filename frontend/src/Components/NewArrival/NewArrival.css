@@ -44,6 +44,10 @@
   background-color: #050505 !important;
 }
 
+.card-image{
+  border-radius: 0 !important;
+}
+
 button {
   padding: 10px 20px;
   background-color: #007bff;

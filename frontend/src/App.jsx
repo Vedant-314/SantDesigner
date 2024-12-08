@@ -19,6 +19,8 @@ import CustomDesign from "./Components/CustomDesign/CustomDesign";
 import Admin from "./Components/Admin/Admin";
 import { useSelector } from "react-redux";
 import ShoeProd from "./Components/ShoeProd/ShoeProd";
+import Stitched from "./Components/Stitched/Stitched";
+import StitchProd from "./Components/StitchProd/StitchProd";
 
 
 function App() {
@@ -82,6 +84,14 @@ function App() {
               }
             />
             <Route
+              path="/stitchproduct/:id"
+              element={
+                <PublicRoute>
+                  <StitchProd />
+                </PublicRoute>
+              }
+            />
+            <Route
               path="/checkout"
               element={
                 <ProtectedRoute>
@@ -90,10 +100,19 @@ function App() {
               }
             />
             <Route
-              path="/allarrivals"
+              path="/allarrivals/:category"
               element={
                 <PublicRoute>
                   <AllArrivals />
+                </PublicRoute>
+              }
+            />
+
+            <Route
+              path="/stitched"
+              element={
+                <PublicRoute>
+                  <Stitched />
                 </PublicRoute>
               }
             />

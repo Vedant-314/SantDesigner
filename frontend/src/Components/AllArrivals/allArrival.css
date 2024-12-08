@@ -8,6 +8,10 @@
   margin-bottom: 30px;
 }
 
+.card-image{
+  border-radius:  0 !important;
+}
+
 .arrival {
   display: flex;
   justify-content: center;
@@ -16,7 +20,7 @@
 
 .meta {
   font-size: 16px;
-  color: #666;
+  color: #333 !important;
 }
 
 .meta-title {
@@ -27,7 +31,7 @@
 
 .meta-description {
   font-size: 14px;
-  color: #999;
+  color: #333;
 }
 
 button {
