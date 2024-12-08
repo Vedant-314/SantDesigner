@@ -1,6 +1,6 @@
 // orderRoutes.js
 const express = require("express");
-const Order = require("../models/Order"); // Adjust path to your Order model
+const Order = require("../models/Order"); 
 const router = express.Router();
 
 router.get("/orders", async (req, res) => {
