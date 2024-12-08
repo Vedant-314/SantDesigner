@@ -12,7 +12,7 @@ import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 import { EffectFade, Pagination, Navigation, Autoplay } from "swiper/modules";
-
+import toast from "react-hot-toast";
 function ShoeProd() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ function ShoeProd() {
         const response = await axios.get(`/api/products/prodsku/${id}`);
         const data = response.data; // Access the product data in response.data
         setProduct(data); // Set the actual product data
-        console.log(data); // Log the product data for verification
+ // Log the product data for verification
       } catch (error) {
         console.error("Error fetching product details:", error);
         setProduct(null);
@@ -62,7 +62,7 @@ function ShoeProd() {
         if (Array.isArray(data)) {
           const media = data.map((item) => item.download_url);
           setProductImages(media);
-          console.log("Fetched media:", media);
+          
         } else {
           console.error("Expected an array but received:", data);
           setProductImages(null);
@@ -80,13 +80,14 @@ function ShoeProd() {
 
   const handleAddToCart = () => {
     addItem({
-      name: product.Title,
+      name: product["Product Name"],
       price: product["Selling Price"],
+      category: product.category,
       quantity: 1,
       id: id,
       size: true,
     });
-    toast.success(`${product.Title} has been added to your cart!`);
+    toast.success(`${product["Product Name"]} has been added to your cart!`);
   };
 
   const parseSizes = (sizeRange) => {
@@ -103,7 +104,6 @@ function ShoeProd() {
 
   
 
-  console.log(sizeOptions);
 
   return (
     <div className="product-container">
@@ -165,7 +165,7 @@ function ShoeProd() {
         <div className="desc-right">
           <div className="desc-content">
             <h2>
-              <i>{product?.Title}</i>
+              <i>{product["Product Name"]}</i>
             </h2>
             <p>
               <h4>
@@ -174,10 +174,8 @@ function ShoeProd() {
               <h4>
                 <b>Size :</b>{" "}
                 <select>
-                    
                   {sizeOptions.map((size) => (
-                      <option key={size} value={size}>
-                        {console.log(sizeOptions)}
+                    <option key={size} value={size}>
                       {size}
                     </option>
                   ))}

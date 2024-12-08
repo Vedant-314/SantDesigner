@@ -62,7 +62,6 @@ function Product() {
         if (Array.isArray(data)) {
           const media = data.map((item) => item.download_url);
           setProductImages(media);
-          console.log("Fetched media:", media);
         } else {
           console.error("Expected an array but received:", data);
           setProductImages(null);

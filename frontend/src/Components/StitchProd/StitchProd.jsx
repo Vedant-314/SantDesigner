@@ -12,6 +12,7 @@ import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 import { EffectFade, Pagination, Navigation, Autoplay } from "swiper/modules";
+import toast from "react-hot-toast";
 
 function StitchProd() {
   const { id } = useParams();
@@ -23,33 +24,38 @@ function StitchProd() {
   const [productImages, setProductImages] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
-  const token = import.meta.env.VITE_TOKEN;;
+  const token = import.meta.env.VITE_TOKEN;
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-
     const fetchProductDetails = async () => {
       try {
         const response = await axios.get(`/api/products/stitchedsku/${id}`);
-        const data = response.data; // Access the product data in response.data
-        setProduct(data); // Set the actual product data
-        console.log(data); // Log the product data for verification
+        const data = response.data;
+        setProduct(data);
+
+        // Fetch product images after determining the category
+        if (data && data.Category) {
+          fetchProductImages(data.Category);
+        }
       } catch (error) {
-        console.error("Error fetching product details:", error);
         setProduct(null);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchProductDetails();
-  }, [id]);
-
-  useEffect(() => {
-    const fetchProductImages = async () => {
+    const fetchProductImages = async (category) => {
       try {
+        const categoryFolderMap = {
+          BasicSuits: "BS",
+          DesignSuits: "DS",
+          sherwani: "IW",
+          JodhSuits: "JS",
+        };
+
+        const folderName = categoryFolderMap[category];
         const response = await axios.get(
-          `https://api.github.com/repos/Gurshaan-1/photos/contents/HBS/${id}`,
+          `https://api.github.com/repos/Gurshaan-1/photos/contents/${folderName}/${id}`,
           {
             headers: {
               Authorization: `token ${token}`,
@@ -57,53 +63,36 @@ function StitchProd() {
             },
           }
         );
-        const data = response.data;
 
+        const data = response.data;
         if (Array.isArray(data)) {
           const media = data.map((item) => item.download_url);
           setProductImages(media);
-          console.log("Fetched media:", media);
         } else {
-          console.error("Expected an array but received:", data);
+
           setProductImages(null);
         }
       } catch (error) {
-        console.error("Error fetching product media:", error);
         setProductImages(null);
-      } finally {
-        setLoading(false);
       }
     };
 
-    fetchProductImages();
+    fetchProductDetails();
   }, [id]);
 
   const handleAddToCart = () => {
     addItem({
-      name: product.Title,
-      price: product["Selling Price"],
+      name: product["product title"],
+      category: product.Category,
+      price: product.price,
       quantity: 1,
       id: id,
       size: true,
     });
-    toast.success(`${product.Title} has been added to your cart!`);
+    toast.success(`${product["product title"]} has been added to your cart!`);
   };
 
-  const parseSizes = (sizeRange) => {
-    const matches = sizeRange.match(/UK(\d+)-UK(\d+)/);
-    if (!matches) return []; 
-
-    const minSize = parseInt(matches[1], 10); // Extracts 6
-    const maxSize = parseInt(matches[2], 10); // Extracts 12
-
-    return Array.from({ length: maxSize - minSize + 1 }, (_, i) => `UK${minSize + i}`);
-  };
-
-  const sizeOptions = product?.Size ? parseSizes(product.Size) : [];
-
-  
-
-  console.log(sizeOptions);
+ const sizeOptions = Array.from({ length: 5 }, (_, i) => 32 + i * 2);
 
   return (
     <div className="product-container">
@@ -156,7 +145,10 @@ function StitchProd() {
         <div className="desc-left">
           <div className="desc-content">
             <h2>Description</h2>
-            <p>{product?.Description}</p>
+            <p>
+              {product ? product["bullet point"] : "N/A"}
+              {product ? product["bullet point "] : "N/A"}
+            </p>
             <small>
               <MdCurrencyExchange /> Easy returns and exchange
             </small>
@@ -165,37 +157,55 @@ function StitchProd() {
         <div className="desc-right">
           <div className="desc-content">
             <h2>
-              <i>{product?.Title}</i>
+              <i>{product ? product["product title"] : "N/A"}</i>
             </h2>
             <p>
               <h4>
-                <b>Price :</b> ₹ {product ? product["Selling Price"] : "N/A"}
+                <b>Price :</b> ₹ {product ? product.price : "N/A"}
               </h4>
               <h4>
                 <b>Size :</b>{" "}
                 <select>
-                    
                   {sizeOptions.map((size) => (
-                      <option key={size} value={size}>
-                        {console.log(sizeOptions)}
+                    <option key={size} value={size}>
                       {size}
                     </option>
                   ))}
                 </select>
               </h4>
               <h4>
-                <b>Color :</b> {product?.Color}
+                <b>Color :</b> {product?.colour}
               </h4>
               <h4>
-                <b>Material :</b> {product?.Material}
+                <b>Color Options :</b>{" "}
+                {product ? product["colour options"] : "N/A"}
               </h4>
               <h4>
                 <b>Delivery Period :</b>{" "}
-                {product ? product["DELIVERY PERIOD"] : "N/A"}
+                {product ? product["delivery time"] : "N/A"}
               </h4>
               <h4>
-                <b>Dimensions :</b> {product ? product["Product Size"] : "N/A"}
+                <b>Includes :</b> {product ? product.includes : "N/A"}
               </h4>
+              {product &&
+                (product.Category === "sherwani" ||
+                  product.Category === "JodhSuits" ||
+                  product.Category === "DesignSuits") && (
+                  <h4>
+                    <b>Pant Options :</b> {product["pant option"] || "N/A"}
+                  </h4>
+                )}
+              {product && product.Category === "BasicSuits" && (
+                <h4>
+                  <b>Button Options :</b> {product["buttons options"] || "N/A"}
+                </h4>
+              )}
+              {product && product.Category === "DesignSuits" && (
+                <h4>
+                  <b>Embroidery Color Options :</b>{" "}
+                  {product["embroidery colour options"] || "N/A"}
+                </h4>
+              )}
             </p>
             {user ? (
               <button onClick={handleAddToCart}>
