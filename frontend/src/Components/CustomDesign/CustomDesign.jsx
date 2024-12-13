@@ -78,11 +78,11 @@ function CustomDesign() {
       <div className="arrival">
         <Row gutter={16}>
           {products.map((product) => (
-            <Col key={product._id} span={6} sm={12} xs={24} md={6}>
+            <Col key={product._id} span={6} sm={12} xs={12} md={6}>
               <Card
                 hoverable
-                style={{ marginTop: 16, marginLeft: 16, marginRight: 16 }}
-                cover={<img alt={product.name} src={product.imageUrl} />}
+                style={{ marginTop: 16, marginLeft: 5, marginRight: 5, borderRadius: 0, objectFit: "contain" }}
+                cover={<img className="card-image" alt={product.name} src={product.imageUrl} />}
                 onClick={() => navigate(`/shoeproduct/${product.SKU}`)}
               >
                 <Meta

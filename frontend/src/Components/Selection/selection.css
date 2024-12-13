@@ -1,0 +1,34 @@
+.selection-container{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.selection {
+    display: grid;
+    grid-template-columns:  repeat(2, 1fr); 
+    gap: 16px;
+    width: 100%;
+    padding: 16px;
+}
+
+@media (min-width: 600px) {
+    .selection {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .selection {
+        grid-template-columns: repeat(4, 1fr); 
+    }
+}
+
+/* .selection-container .categories-title{
+    width: 100%;
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+    align-items: center;
+} */

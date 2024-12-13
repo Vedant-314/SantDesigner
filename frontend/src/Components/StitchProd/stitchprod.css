@@ -1,0 +1,31 @@
+.color-options {
+    display: flex;
+    gap: 8px; /* Reduce gap for inline appearance */
+    align-items: center; /* Align circles vertically in the center */
+    margin-top: 5px;
+  }
+  
+  .color-circle {
+    width: 20px; /* Shrink the size of the color balls */
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  
+  .color-circle:hover {
+    transform: scale(1.1);
+  }
+  
+  .color-circle.selected {
+    border-color: #000; /* Highlight the selected color */
+    transform: scale(1.2);
+  }
+  
+  .selected-color-text {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #555; /* Light grey color for subtle emphasis */
+  }
+  

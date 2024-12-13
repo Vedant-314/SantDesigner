@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import cat from "../../../assets/category.jpg";
 import "./category.css";
 
 function Category({ imgSrc, title, link, props }) {

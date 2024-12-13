@@ -14,6 +14,8 @@ import "swiper/css/pagination";
 import { EffectFade, Pagination, Navigation, Autoplay } from "swiper/modules";
 import toast from "react-hot-toast";
 
+import "./stitchprod.css";
+
 function StitchProd() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -23,8 +25,22 @@ function StitchProd() {
   const [product, setProduct] = useState(null);
   const [productImages, setProductImages] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [selectedColor, setSelectedColor] = useState(null); // State to manage selected color
   const token = import.meta.env.VITE_TOKEN;
+
+  // Mapping color names to hex codes
+  const colorNameHexMap = {
+    black: "#000000",
+    blue: "#0000FF",
+    green: "#008000",
+    wine: "#722F37",
+    maroon: "#800000",
+    "dark grey": "#A9A9A9",
+    "light grey": "#D3D3D3",
+    cream: "#FFFDD0",
+    beige: "#F5F5DC",
+    brown: "#A52A2A",
+  };
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -69,7 +85,6 @@ function StitchProd() {
           const media = data.map((item) => item.download_url);
           setProductImages(media);
         } else {
-
           setProductImages(null);
         }
       } catch (error) {
@@ -88,11 +103,12 @@ function StitchProd() {
       quantity: 1,
       id: id,
       size: true,
+      color: selectedColor, // Add selected color to cart
     });
     toast.success(`${product["product title"]} has been added to your cart!`);
   };
 
- const sizeOptions = Array.from({ length: 5 }, (_, i) => 32 + i * 2);
+  const sizeOptions = Array.from({ length: 5 }, (_, i) => 32 + i * 2);
 
   return (
     <div className="product-container">
@@ -177,8 +193,31 @@ function StitchProd() {
                 <b>Color :</b> {product?.colour}
               </h4>
               <h4>
-                <b>Color Options :</b>{" "}
-                {product ? product["colour options"] : "N/A"}
+                <b>Color Options:</b>
+                <div className="color-options">
+                  {product && product["colour options"]
+                    ? product["colour options"]
+                        .split(", ")
+                        .map((color, index) => (
+                          <div
+                            key={index}
+                            className={`color-circle ${
+                              selectedColor === color ? "selected" : ""
+                            }`}
+                            style={{
+                              backgroundColor: colorNameHexMap[color] || "#000",
+                            }}
+                            title={color}
+                            onClick={() => setSelectedColor(color)}
+                          />
+                        ))
+                    : "N/A"}
+                </div>
+                {selectedColor && (
+                  <small className="selected-color-text">
+                    Selected Color: {selectedColor}
+                  </small>
+                )}
               </h4>
               <h4>
                 <b>Delivery Period :</b>{" "}

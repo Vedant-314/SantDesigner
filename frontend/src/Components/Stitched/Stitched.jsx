@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Card, Col, Row, Avatar, Typography } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import nehruJacketImage from "../../assets/nehruJacket.png";
-import shirtImage from "../../assets/shirt.jpeg";
-import premiumImage from "../../assets/premium.jpeg";
-import suitingImage from "../../assets/suiting.jpeg";
+import all from "../../assets/all.jpg";
+import shirtImage from "../../assets/innerBS.jpg";
+import premiumImage from "../../assets/innerDS.jpg";
+import suitingImage from "../../assets/innerJS.jpg";
 import { hideLoading, showLoading } from "../../../redux/alertSlice";
 import { useDispatch } from "react-redux";
 
@@ -14,7 +14,6 @@ const { Meta } = Card;
 const { Text } = Typography;
 
 const categories = [
-  { name: "SHERWANI", imageUrl: nehruJacketImage, category: "sherwani" },
   { name: "BASIC SUIT", imageUrl: shirtImage, category: "BasicSuits" },
   { name: "DESIGNER SUIT", imageUrl: premiumImage, category: "DesignSuits" },
   { name: "JODHPURI SUIT", imageUrl: suitingImage, category: "JodhSuits" },
@@ -25,7 +24,6 @@ const token = import.meta.env.VITE_TOKEN;
 const urls = [
   "https://api.github.com/repos/Gurshaan-1/photos/contents/BS",
   "https://api.github.com/repos/Gurshaan-1/photos/contents/DS",
-  "https://api.github.com/repos/Gurshaan-1/photos/contents/IW",
   "https://api.github.com/repos/Gurshaan-1/photos/contents/JS",
 ];
 
@@ -122,16 +120,17 @@ function Stitched() {
         style={{
           backgroundImage: selectedCategoryDetails
             ? `url(${selectedCategoryDetails.imageUrl})`
-            : "none",
+            : `url(${all})`,
+          color:"white",
         }}
       >
         <h2>
-          {selectedCategoryDetails ? selectedCategoryDetails.name : "Fabrics"}
+          {selectedCategoryDetails ? selectedCategoryDetails.name : "All Tailored Suits"}
         </h2>
       </div>
 
       <div className="arrival-container">
-        <div className="category-avatars">
+        {/* <div className="category-avatars">
           {categories.map((category) => (
             <div
               key={category.name}
@@ -144,7 +143,7 @@ function Stitched() {
               <Text className="category-name">{category.name}</Text>
             </div>
           ))}
-        </div>
+        </div> */}
 
         <div className="arrival">
           <Row gutter={8}>
@@ -169,7 +168,7 @@ function Stitched() {
                 >
                   <Meta
                     className="meta"
-                    title={product["product title"]}
+                    title={product["product title"].toUpperCase()}
                     description={`₹ ${product.price}`}
                   />
                 </Card>

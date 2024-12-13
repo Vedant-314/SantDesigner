@@ -23,7 +23,7 @@ function ShoeProd() {
   const [productImages, setProductImages] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
-  const token = import.meta.env.VITE_TOKEN;;
+  const token = import.meta.env.VITE_TOKEN;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -33,7 +33,7 @@ function ShoeProd() {
         const response = await axios.get(`/api/products/prodsku/${id}`);
         const data = response.data; // Access the product data in response.data
         setProduct(data); // Set the actual product data
- // Log the product data for verification
+        // Log the product data for verification
       } catch (error) {
         console.error("Error fetching product details:", error);
         setProduct(null);
@@ -62,7 +62,6 @@ function ShoeProd() {
         if (Array.isArray(data)) {
           const media = data.map((item) => item.download_url);
           setProductImages(media);
-          
         } else {
           console.error("Expected an array but received:", data);
           setProductImages(null);
@@ -92,24 +91,24 @@ function ShoeProd() {
 
   const parseSizes = (sizeRange) => {
     const matches = sizeRange.match(/UK(\d+)-UK(\d+)/);
-    if (!matches) return []; 
+    if (!matches) return [];
 
     const minSize = parseInt(matches[1], 10); // Extracts 6
     const maxSize = parseInt(matches[2], 10); // Extracts 12
 
-    return Array.from({ length: maxSize - minSize + 1 }, (_, i) => `UK${minSize + i}`);
+    return Array.from(
+      { length: maxSize - minSize + 1 },
+      (_, i) => `UK${minSize + i}`
+    );
   };
 
   const sizeOptions = product?.Size ? parseSizes(product.Size) : [];
-
-  
-
 
   return (
     <div className="product-container">
       <Swiper
         spaceBetween={30}
-        slidesPerView={3}
+        slidesPerView={1}
         navigation={true}
         centeredSlides={true}
         pagination={{
@@ -122,6 +121,20 @@ function ShoeProd() {
         loop={true}
         modules={[EffectFade, Navigation, Pagination, Autoplay]}
         className="mySwiper"
+        breakpoints={{
+          768: {
+            slidesPerView: 3, // For screens 768px and wider
+            spaceBetween: 30,
+          },
+          480: {
+            slidesPerView: 1, // For screens between 480px and 768px
+            spaceBetween: 20,
+          },
+          0: {
+            slidesPerView: 1, // For screens smaller than 480px
+            spaceBetween: 10,
+          },
+        }}
       >
         {productImages && productImages.length > 0 ? (
           productImages.map((media, index) => (
@@ -141,7 +154,11 @@ function ShoeProd() {
                   </video>
                 </div>
               ) : (
-                <img src={media} alt={`Product Image ${index + 1}`} />
+                <img
+                  className="swiper-image"
+                  src={media}
+                  alt={`Product Image ${index + 1}`}
+                />
               )}
             </SwiperSlide>
           ))
@@ -157,6 +174,10 @@ function ShoeProd() {
           <div className="desc-content">
             <h2>Description</h2>
             <p>{product?.Description}</p>
+            <ul>
+              <li>{product ? product["Bullet Points"] : "N/A"}</li>
+              <li>{product ? product["BULLET POINT"] : "N/A"}</li>
+            </ul>
             <small>
               <MdCurrencyExchange /> Easy returns and exchange
             </small>
@@ -165,7 +186,7 @@ function ShoeProd() {
         <div className="desc-right">
           <div className="desc-content">
             <h2>
-              <i>{product["Product Name"]}</i>
+              <i>{product ? product["Product Name"] : "N/A"}</i>
             </h2>
             <p>
               <h4>
@@ -190,9 +211,6 @@ function ShoeProd() {
               <h4>
                 <b>Delivery Period :</b>{" "}
                 {product ? product["DELIVERY PERIOD"] : "N/A"}
-              </h4>
-              <h4>
-                <b>Dimensions :</b> {product ? product["Product Size"] : "N/A"}
               </h4>
             </p>
             {user ? (

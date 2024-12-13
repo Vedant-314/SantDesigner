@@ -6,14 +6,22 @@
 .swiper-slide {
   background-position: center;
   background-size: cover;
-  width: 300px;
-  height: 300px;
+  /* width: 500px; */
+  height: 500px;
 }
 
 .swiper-slide img {
   display: block;
   width: 100%;
 }
+
+.swiper-image {
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; /* Ensures the image scales proportionally and fills the container */
+  /* border-radius: 5px; Optional: Add rounded corners if needed */
+}
+
 
 .desc-container {
   width: 100%;
@@ -22,8 +30,9 @@
 }
 
 .desc-container .desc-left {
-  width: 60%;
+  width: 50%;
   line-height: 2;
+  margin: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,12 +67,20 @@
 
 .desc-left .desc-content {
   width: 90%;
+
 }
 .desc-right .desc-content {
   width: 90%;
 }
-.desc-left p,
-.desc-right p {
+
+.desc-left .desc-content ul li {
+
+    list-style-type: disc; /* Ensures bullets are shown */
+    margin-left: 20px; 
+}
+.desc-left 
+  {
+    width: 50%;
   border: 1px dotted black;
   border-radius: 10px;
   padding: 10px;
@@ -79,17 +96,25 @@ span {
 
 @media screen and (max-width: 900px) {
   .desc-container {
-    flex-flow: column;
+    flex-flow: column-reverse;
     justify-content: center;
     align-items: center;
     font-size: 12px;
   }
 
   .desc-container .desc-left {
+    width: 90%;
+    margin-top: 10px;
+  }
+
+  .desc-container .desc-right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
   }
 
   .swiper-slide {
-    height: 100%;
+    height: 500px;
   }
 }

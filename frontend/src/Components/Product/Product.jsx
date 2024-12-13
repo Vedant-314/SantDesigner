@@ -108,7 +108,7 @@ function Product() {
     <div className="product-container">
       <Swiper
         spaceBetween={30}
-        slidesPerView={3}
+        slidesPerView={1}
         navigation={true}
         centeredSlides={true}
         pagination={{
@@ -121,6 +121,20 @@ function Product() {
         loop={true}
         modules={[EffectFade, Navigation, Pagination, Autoplay]}
         className="mySwiper"
+        breakpoints={{
+          768: {
+            slidesPerView: 3, // For screens 768px and wider
+            spaceBetween: 30,
+          },
+          480: {
+            slidesPerView: 1, // For screens between 480px and 768px
+            spaceBetween: 20,
+          },
+          0: {
+            slidesPerView: 1, // For screens smaller than 480px
+            spaceBetween: 10,
+          },
+        }}
       >
         {productImages && productImages.length > 0 ? (
           productImages.map((media, index) => (
@@ -140,7 +154,11 @@ function Product() {
                   </video>
                 </div>
               ) : (
-                <img src={media} alt={`Product Image ${index + 1}`} />
+                <img
+                  className="swiper-image"
+                  src={media}
+                  alt={`Product Image ${index + 1}`}
+                />
               )}
             </SwiperSlide>
           ))

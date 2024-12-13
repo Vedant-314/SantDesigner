@@ -1,7 +1,7 @@
 .banner-container {
   width: 100%;
   background-color: #f6f1f1;
-  height: 500px;
+  height: 350px;
 }
 
 .banner-container .slider-content1 {
@@ -14,7 +14,7 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: 500px;
+  height: 350px;
 }
 
 .banner-container .slider-content2 {
@@ -27,7 +27,7 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: 500px;
+  height: 350px;
 }
 
 .slider-text {

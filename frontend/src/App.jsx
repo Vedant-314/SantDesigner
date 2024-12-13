@@ -21,6 +21,7 @@ import { useSelector } from "react-redux";
 import ShoeProd from "./Components/ShoeProd/ShoeProd";
 import Stitched from "./Components/Stitched/Stitched";
 import StitchProd from "./Components/StitchProd/StitchProd";
+import Selection from "./Components/Selection/Selection";
 
 
 function App() {
@@ -76,6 +77,14 @@ function App() {
               }
             />
             <Route
+              path="/selection"
+              element={
+                <PublicRoute>
+                  <Selection />
+                </PublicRoute>
+              }
+            />
+            <Route
               path="/shoeproduct/:id"
               element={
                 <PublicRoute>
@@ -109,7 +118,7 @@ function App() {
             />
 
             <Route
-              path="/stitched"
+              path="/stitched/:category"
               element={
                 <PublicRoute>
                   <Stitched />
