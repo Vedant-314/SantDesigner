@@ -103,9 +103,9 @@ function App() {
             <Route
               path="/checkout"
               element={
-                <ProtectedRoute>
+                
                   <Billing />
-                </ProtectedRoute>
+
               }
             />
             <Route
@@ -128,9 +128,7 @@ function App() {
             <Route
               path="/profile"
               element={
-                <ProtectedRoute>
                   <Profile />
-                </ProtectedRoute>
               }
             />
             <Route

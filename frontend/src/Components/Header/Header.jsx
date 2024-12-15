@@ -14,12 +14,15 @@ import toast from "react-hot-toast";
 function Header() {
   const [showCart, setShowCart] = useState(false);
   const [clicked, setClicked] = useState(false);
-  const handleClick = () => setClicked(!clicked);
+  const [phoneModalOpen, setPhoneModalOpen] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
+
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const { cart } = useCart();
+
+  const handleClick = () => setClicked(!clicked);
 
   const handleLogout = () => {
     localStorage.clear();
@@ -27,8 +30,23 @@ function Header() {
     dispatch(logoutUser());
     navigate("/login");
   };
-  const handleprofile = () => {
-    navigate("/profile");
+
+  const handleProfile = (userName) => {
+    if (userName) {
+      navigate("/profile");
+    } else {
+      setPhoneModalOpen(true); // Open phone number modal for guests
+    }
+  };
+
+  const handlePhoneSubmit = () => {
+    if (phoneNumber) {
+      setPhoneModalOpen(false); // Close modal
+      localStorage.setItem("guestPhoneNumber", phoneNumber);
+      navigate("/profile"); // Navigate to profile page
+    } else {
+      toast.error("Please enter a valid phone number!");
+    }
   };
 
   return (
@@ -65,7 +83,7 @@ function Header() {
           </ul>
         </div>
         <div className="right">
-          <span onClick={handleprofile} className="user-name">
+          <span onClick={() => handleProfile(user?.name)} className="user-name">
             {user ? user.name : "Guest"}
           </span>
           <span className="cart-icon">
@@ -101,6 +119,29 @@ function Header() {
         </div>
       )}
       {showCart && <Cart setShowCart={setShowCart} />}
+      {phoneModalOpen && (
+        <div
+          className="phone-modal-overlay"
+          onClick={() => setPhoneModalOpen(false)}
+        >
+          <div
+            className="phone-modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2>Track Your Orders</h2>
+            <input
+              type="text"
+              placeholder="Enter Your Phone Number"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
+            <div className="phone-modal-buttons">
+              <button onClick={handlePhoneSubmit}>Submit</button>
+              <button onClick={() => setPhoneModalOpen(false)}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

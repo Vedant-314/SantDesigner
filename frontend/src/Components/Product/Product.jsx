@@ -25,6 +25,8 @@ function Product() {
   const [productImages, setProductImages] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -85,14 +87,6 @@ function Product() {
     return <div>Product not found</div>;
   }
 
-  const handleVideoClick = () => {
-    setIsPlaying(true);
-  };
-
-  const handleVideoEnd = () => {
-    setIsPlaying(false);
-  };
-
   const handleAddToCart = () => {
     addItem({
       name: product.Title,
@@ -102,6 +96,16 @@ function Product() {
       truth: true,
     });
     toast.success(`${product.Title} has been added to your cart!`);
+  };
+
+  const handleImageClick = (image) => {
+    setSelectedImage(image);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedImage(null);
   };
 
   return (
@@ -158,6 +162,7 @@ function Product() {
                   className="swiper-image"
                   src={media}
                   alt={`Product Image ${index + 1}`}
+                  onClick={() => handleImageClick(media)}
                 />
               )}
             </SwiperSlide>
@@ -168,6 +173,15 @@ function Product() {
           </SwiperSlide>
         )}
       </Swiper>
+
+      {/* Modal for Image */}
+      {isModalOpen && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <img src={selectedImage} alt="Enlarged product" />
+          </div>
+        </div>
+      )}
 
       <div className="desc-container">
         <div className="desc-left">
@@ -209,9 +223,14 @@ function Product() {
                 <BsCart /> Add to Cart
               </button>
             ) : (
-              <button onClick={() => navigate("/login")}>
-                <CiLogin /> Login To Buy
-              </button>
+              <div className="guest-buying">
+                <button onClick={() => navigate("/login")}>
+                  <CiLogin /> Login To Buy
+                </button>
+                <button onClick={handleAddToCart}>
+                  Continue Buying as Guest
+                </button>
+              </div>
             )}
           </div>
         </div>

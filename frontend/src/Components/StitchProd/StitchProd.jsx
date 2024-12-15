@@ -26,6 +26,8 @@ function StitchProd() {
   const [productImages, setProductImages] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedColor, setSelectedColor] = useState(null); // State to manage selected color
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
   const token = import.meta.env.VITE_TOKEN;
 
   // Mapping color names to hex codes
@@ -110,6 +112,16 @@ function StitchProd() {
 
   const sizeOptions = Array.from({ length: 5 }, (_, i) => 32 + i * 2);
 
+  const handleImageClick = (image) => {
+    setSelectedImage(image);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedImage(null);
+  };
+
   return (
     <div className="product-container">
       <Swiper
@@ -146,7 +158,11 @@ function StitchProd() {
                   </video>
                 </div>
               ) : (
-                <img src={media} alt={`Product Image ${index + 1}`} />
+                <img
+                  src={media}
+                  alt={`Product Image ${index + 1}`}
+                  onClick={() => handleImageClick(media)}
+                />
               )}
             </SwiperSlide>
           ))
@@ -156,6 +172,13 @@ function StitchProd() {
           </SwiperSlide>
         )}
       </Swiper>
+      {isModalOpen && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <img src={selectedImage} alt="Enlarged product" />
+          </div>
+        </div>
+      )}
 
       <div className="desc-container">
         <div className="desc-left">
@@ -251,9 +274,14 @@ function StitchProd() {
                 <BsCart /> Add to Cart
               </button>
             ) : (
-              <button onClick={() => navigate("/login")}>
-                <CiLogin /> Login To Buy
-              </button>
+              <div className="guest-buying">
+                <button onClick={() => navigate("/login")}>
+                  <CiLogin /> Login To Buy
+                </button>
+                <button onClick={handleAddToCart}>
+                  Continue Buying as Guest
+                </button>
+              </div>
             )}
           </div>
         </div>

@@ -42,9 +42,6 @@ const CartItem = () => {
                   alt={item.title}
                 />
               )}
-              {console.log(
-                `https://raw.githubusercontent.com/Gurshaan-1/photos/main/${folderPrefix}/${item.id}/${item.id}_1.JPG`
-              )}
             </div>
             <div className="prod-details">
               <span className="name">{item.title}</span>

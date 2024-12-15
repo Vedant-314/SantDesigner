@@ -11,6 +11,7 @@ import { useCart } from "../../../utils/context";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Billing() {
   const [countryId, setCountryId] = useState(null);
@@ -30,32 +31,49 @@ function Billing() {
       phoneNumber: values.phoneNumber,
       country: values.country.name,
       state: values.state.name,
-      city: values.city.name,
+      city: values.city,
       pincode: values.pincode,
       addressLine1: values.addressLine1,
       addressLine2: values.addressLine2,
     };
 
+    const isLoggedIn = !!userId;
+
     if (isCOD) {
       try {
-        await axios.post("/api/user/create-cod-order", {
+        const payload = {
           cart,
-          userId,
-          userName,
           address,
-          subtotal: subtotal,
+          subtotal,
           paymentMethod: "COD",
-        });
+        };
+
+        if (isLoggedIn) {
+          // Logged-in user payload
+          payload.userId = userId;
+          payload.userName = userName;
+
+          await axios.post("/api/user/create-cod-order", payload);
+        } else {
+          // Guest user payload
+          payload.firstName = `${address.firstName} ${address.lastName}`;
+          payload.phoneNumber = address.phoneNumber;
+
+          await axios.post("/api/user/create-guest-cod-order", payload);
+        }
 
         clearCart();
         navigate("/profile");
-        alert("Order placed successfully. Pay upon delivery.");
+        toast.success("Order placed successfully. Pay upon delivery.");
       } catch (error) {
         console.error("COD Order error:", error);
+        toast.error("Failed to place COD order.");
       }
     } else {
       try {
-        const order = await axios.post("/api/user/create-order", { subtotal });
+        const order = isLoggedIn
+          ? await axios.post("/api/user/create-order", { subtotal })
+          : await axios.post("/api/user/create-guest-order", { subtotal });
 
         const options = {
           key: "rzp_test_zK3u7sfYV5RQYI",
@@ -64,24 +82,38 @@ function Billing() {
           order_id: order.data.id,
           handler: async function (response) {
             try {
-              await axios.post("/api/user/verify-payment", {
+              const payload = {
                 razorpayPaymentId: response.razorpay_payment_id,
                 razorpayOrderId: response.razorpay_order_id,
                 razorpaySignature: response.razorpay_signature,
                 cart,
-                userId,
-                userName,
                 address,
                 subtotal,
                 paymentMethod: "Online",
-              });
+              };
+
+              if (isLoggedIn) {
+                // Add logged-in user-specific details
+                payload.userId = userId;
+                payload.userName = userName;
+
+                await axios.post("/api/user/verify-payment", payload);
+              } else {
+                payload.userName = `${address.firstName} ${address.lastName}`;
+                payload.phoneNumber = address.phoneNumber;
+
+                await axios.post("/api/user/verify-guest-payment", payload);
+              }
 
               clearCart();
               navigate("/profile");
+              toast.success("Payment successful and order placed!");
             } catch (error) {
-              console.error("Verification error:", error);
+              console.error("Payment verification error:", error.message);
+              toast.error("Payment verification failed. Please try again.");
             }
           },
+
           prefill: {
             name: address.firstName + " " + address.lastName,
             email: "customer@example.com",
@@ -91,11 +123,30 @@ function Billing() {
             color: "#3399cc",
           },
         };
+
         const rzp = new window.Razorpay(options);
         rzp.open();
       } catch (error) {
         console.error("Payment error:", error);
+        alert("Failed to process payment.");
       }
+    }
+  };
+
+  const getCategoryPrefix = (category) => {
+    switch (category) {
+      case "sherwani":
+        return "IW";
+      case "BasicSuits":
+        return "BS";
+      case "JodhSuits":
+        return "JS";
+      case "DesignSuits":
+        return "DS";
+      case "Shoes":
+        return "HBS";
+      default:
+        return "assets"; // Fallback folder
     }
   };
 
@@ -163,7 +214,7 @@ function Billing() {
                       setCountryId(e.id);
                     }}
                     placeHolder="Select Country"
-                    showFlag = {true}
+                    showFlag={true}
                   />
                 </Form.Item>
               </Col>
@@ -256,31 +307,41 @@ function Billing() {
           <h2>Cart - Items</h2>
           <div className="cart-items">
             <div className="cart-products">
-              {cart?.map((item) => (
-                <div key={item.id} className="cart-product">
-                  <div className="img-container">
-                    <img
-                      src={`https://raw.githubusercontent.com/Gurshaan-1/photos/main/assets/${item.id}/${item.id}_1.jpg`}
-                      alt=""
-                    />
-                  </div>
-                  <div className="prod-details">
-                    <span className="name">{item.title}</span>
-                    <div className="cart-buttons">
-                      <p>Quantity:</p>
-                      <span>{item.quantity}</span>
+              {cart?.map((item) => {
+                const folderPrefix = getCategoryPrefix(item.category); // Determine prefix
+                return (
+                  <div key={item.id} className="cart-product">
+                    <div className="img-container">
+                      {folderPrefix && folderPrefix === "assets" ? (
+                        <img
+                          src={`https://raw.githubusercontent.com/Gurshaan-1/photos/main/${folderPrefix}/${item.id}/${item.id}_1.jpg`}
+                          alt={item.title}
+                        />
+                      ) : (
+                        <img
+                          src={`https://raw.githubusercontent.com/Gurshaan-1/photos/main/${folderPrefix}/${item.id}/${item.id}_1.JPG`}
+                          alt={item.title}
+                        />
+                      )}
                     </div>
-                    <div className="text">
-                      <span>{item.quantity}</span>
-                      <span>x</span>
-                      <span>{item.price} =</span>
-                      <span className="highlight">
-                        &#8377; {item.quantity * item.price}
-                      </span>
+                    <div className="prod-details">
+                      <span className="name">{item.title}</span>
+                      <div className="cart-buttons">
+                        <p>Quantity:</p>
+                        <span>{item.quantity}</span>
+                      </div>
+                      <div className="text">
+                        <span>{item.quantity}</span>
+                        <span>x</span>
+                        <span>{item.price} =</span>
+                        <span className="highlight">
+                          &#8377; {item.quantity * item.price}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
           <div className="cart-total">

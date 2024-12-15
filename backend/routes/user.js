@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const Order = require('../models/Order');
+const GuestOrder = require('../models/GuestOrder');
 const Razorpay = require('razorpay');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -152,7 +153,62 @@ router.post('/create-order', async (req, res) => {
     res.status(500).send(error);
   }
 });
+router.post("/create-guest-order", async (req, res) => {
+  const { subtotal } = req.body;
 
+  const amount = subtotal * 100;
+
+  const options = {
+    amount: amount,
+    currency: "INR",
+    receipt: "receipt#sb01",
+    payment_capture: 1,
+  };
+
+  try {
+    const order = await razorpay.orders.create(options);
+    res.json({
+      id: order.id,
+      amount: order.amount,
+    });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+router.post('/verify-guest-payment', async (req, res) => {
+  const { razorpayPaymentId, razorpayOrderId, razorpaySignature, cart, firstName , phoneNumber ,address, subtotal } = req.body;
+  const secret = process.env.KEY_SECRET;
+
+  const generatedSignature = crypto.createHmac('sha256', secret)
+    .update(razorpayOrderId + '|' + razorpayPaymentId)
+    .digest('hex');
+
+  if (generatedSignature === razorpaySignature) {
+    try {
+      const newOrder = new GuestOrder({
+        paymentId: razorpayPaymentId,
+        razorpayorderid: razorpayOrderId,
+        firstName:firstName,
+        phoneNumber : phoneNumber,
+        paymentStatus: 'Success',
+        paymentMethod: "online",
+        desc: {
+          items: cart,
+          address: address
+        },
+        subtotal
+      });
+
+      await newOrder.save();
+      res.status(200).json({ message: 'Payment verified and order created successfully' });
+    } catch (error) {
+      res.status(500).json({ error: 'Error creating order' });
+    }
+  } else {
+    res.status(400).json({ error: 'Invalid payment signature' });
+  }
+});
 router.post('/verify-payment', async (req, res) => {
   const { razorpayPaymentId, razorpayOrderId, razorpaySignature, cart, userId, userName , address, subtotal } = req.body;
   const secret = process.env.KEY_SECRET;
@@ -218,6 +274,45 @@ router.post("/create-cod-order", async (req, res) => {
     });
   }
 });
+router.post("/create-guest-cod-order", async (req, res) => {
+  try {
+    const {
+      cart,
+      firstName,
+      phoneNumber,
+      address,
+      subtotal,
+    } = req.body;
+
+    const newOrder = new GuestOrder({
+      firstName: firstName,
+      phoneNumber: phoneNumber,
+      paymentStatus: "Success",
+      paymentMethod: "COD",
+      desc: {
+        items: cart,
+        address: address,
+      },
+      subtotal:subtotal+120,
+    });
+
+    await newOrder.save();
+
+    res.status(201).json({
+      success: true,
+      message: "COD order created successfully",
+      order: newOrder,
+    });
+  } catch (error) {
+    console.error("Error creating COD order:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to create COD order",
+    });
+  }
+});
+
+
 
 router.get('/orders/:userId', async (req, res) => {
   try {
@@ -289,4 +384,24 @@ router.post('/verify-otp', async (req, res) => {
   }
 });
 
+router.get("/guest-orders/:phoneNumber", async (req, res) => {
+  try {
+    const { phoneNumber } = req.params;
+    if (!phoneNumber) {
+      return res.status(400).json({ message: "Phone number is required" });
+    }
+
+    const orders = await GuestOrder.find({ phoneNumber });
+
+    if (!orders || orders.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No orders found for this phone number" });
+    }
+    res.status(200).json({ orders });
+  } catch (error) {
+    console.error("Error fetching order details:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 module.exports = router;
