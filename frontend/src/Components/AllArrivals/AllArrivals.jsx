@@ -9,6 +9,7 @@ import premiumImage from "../../assets/premium.jpeg";
 import suitingImage from "../../assets/suiting.jpeg";
 import { hideLoading, showLoading } from '../../../redux/alertSlice';
 import { useDispatch } from "react-redux";
+import Title from "../Title";
 
 
 const { Meta } = Card;
@@ -118,7 +119,7 @@ const AllArrivals = () => {
               >
                 <Meta
                   className="meta"
-                  title={product.name}
+                  title={<Title  title={product["Product Name"].toUpperCase()} maxLength={30} />  }
                   description={`₹ ${product["Selling Price"]}`}
                 />
               </Card>

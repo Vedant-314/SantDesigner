@@ -7,6 +7,12 @@
   list-style: none;
 }
 
+.login-box{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .header-container {
   display: flex;
   justify-content: space-around;
@@ -73,7 +79,7 @@ a {
   justify-content: center;
   align-items: center;
   font-size: 20px;
-  gap: 5px;
+  gap: 15px;
 }
 
 .right svg {

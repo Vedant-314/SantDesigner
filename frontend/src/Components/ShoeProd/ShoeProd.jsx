@@ -135,15 +135,15 @@ function ShoeProd() {
         className="mySwiper"
         breakpoints={{
           768: {
-            slidesPerView: 3, // For screens 768px and wider
+            slidesPerView: 3, 
             spaceBetween: 30,
           },
           480: {
-            slidesPerView: 1, // For screens between 480px and 768px
+            slidesPerView: 1, 
             spaceBetween: 20,
           },
           0: {
-            slidesPerView: 1, // For screens smaller than 480px
+            slidesPerView: 1,
             spaceBetween: 10,
           },
         }}
@@ -208,7 +208,7 @@ function ShoeProd() {
         <div className="desc-right">
           <div className="desc-content">
             <h2>
-              <i>{product ? product["Product Name"] : "N/A"}</i>
+              <span>{product ? product["Product Name"].toUpperCase() : "N/A"}</span>
             </h2>
             <p>
               <h4>
@@ -225,10 +225,10 @@ function ShoeProd() {
                 </select>
               </h4>
               <h4>
-                <b>Color :</b> {product?.Color}
+                <b>Color :</b> {product?.Color.toUpperCase()}
               </h4>
               <h4>
-                <b>Material :</b> {product?.Material}
+                <b>Material :</b> {product?.Material.toUpperCase()}
               </h4>
               <h4>
                 <b>Delivery Period :</b>{" "}

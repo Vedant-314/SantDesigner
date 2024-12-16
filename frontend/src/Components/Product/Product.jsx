@@ -196,7 +196,7 @@ function Product() {
         <div className="desc-right">
           <div className="desc-content">
             <h2>
-              <i>{product.Title}</i>
+              <span>{product.Title.toUpperCase()}</span>
             </h2>
             <p>
               <h4>
@@ -206,20 +206,20 @@ function Product() {
                 <b>Size :</b> {product.Size}
               </h4>
               <h4>
-                <b>Color :</b> {product.Color}
+                <b>Color :</b> {product.Color.toUpperCase()}
               </h4>
               <h4>
-                <b>Fabric :</b> {product.Material}
+                <b>Fabric :</b> {product.Material.toUpperCase()}
               </h4>
               <h4>
-                <b>Gender :</b> {product.Gender}
+                <b>Gender :</b> {product.Gender.toUpperCase()}
               </h4>
               <h4>
-                <b>Dimensions :</b> {product["Product Size"]}
+                <b>Dimensions :</b> {product["Product Size"].toUpperCase()}
               </h4>
             </p>
             {user ? (
-              <button onClick={handleAddToCart}>
+              <button className="prod-btn" onClick={handleAddToCart}>
                 <BsCart /> Add to Cart
               </button>
             ) : (

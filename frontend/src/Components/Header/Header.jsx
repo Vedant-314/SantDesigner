@@ -3,7 +3,7 @@ import { BsCart2 } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
-import { CiLogout } from "react-icons/ci";
+import { CiLogin, CiLogout } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../../redux/userSlice";
 import "./header.css";
@@ -52,13 +52,7 @@ function Header() {
   return (
     <>
       <div className="header-container">
-        <div className="hamburger">
-          {clicked ? (
-            <RxCross2 onClick={handleClick} />
-          ) : (
-            <FaBars onClick={handleClick} />
-          )}
-        </div>
+        
         <div className="left">
           <h2>Sant Designer</h2>
         </div>
@@ -90,11 +84,25 @@ function Header() {
             <BsCart2 onClick={() => setShowCart(true)} />
             {!!cart.length && <span>{cart.length}</span>}
           </span>
+
+          {!user && (
+            <div className="login-box" onClick={() => navigate('/login')}>
+              <CiLogin /> <span className="user-name">Login</span>
+            </div>
+          )}
+
           {user && (
             <div onClick={handleLogout}>
               <CiLogout />
             </div>
           )}
+        <div className="hamburger">
+          {clicked ? (
+            <RxCross2 onClick={handleClick} />
+          ) : (
+            <FaBars onClick={handleClick} />
+          )}
+        </div>
         </div>
       </div>
       {clicked && (

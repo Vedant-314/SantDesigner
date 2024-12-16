@@ -22,6 +22,7 @@ import ShoeProd from "./Components/ShoeProd/ShoeProd";
 import Stitched from "./Components/Stitched/Stitched";
 import StitchProd from "./Components/StitchProd/StitchProd";
 import Selection from "./Components/Selection/Selection";
+import Sherwani from "./Components/Sherwani/Sherwani";
 
 
 function App() {
@@ -125,10 +126,21 @@ function App() {
                 </PublicRoute>
               }
             />
+
+            <Route
+              path="/sherwani"
+              element={
+                <PublicRoute>
+                  <Sherwani/>
+                </PublicRoute>
+              }
+            />
             <Route
               path="/profile"
               element={
+                <PublicRoute>
                   <Profile />
+                </PublicRoute>
               }
             />
             <Route

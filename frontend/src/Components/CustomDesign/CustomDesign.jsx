@@ -6,6 +6,7 @@ import banner from "../../assets/handcrafted.png";
 import './customdesign.css';
 import axios from "axios";
 import { hideLoading, showLoading } from '../../../redux/alertSlice';
+import Title from '../Title';
 
 
 const { Meta } = Card;
@@ -87,7 +88,7 @@ function CustomDesign() {
               >
                 <Meta
                   className="meta"
-                  title={product.name}
+                  title={<Title  title={product["Product Name"].toUpperCase()} maxLength={30} />  }
                   description={`₹ ${product["Selling Price"]}`}
                 />
               </Card>

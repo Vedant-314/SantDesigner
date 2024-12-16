@@ -17,7 +17,8 @@
 
 .meta {
   font-size: 16px;
-  color: #666;
+  color: #050505 !important;
+  opacity: 1;
 }
 
 .meta-title {
@@ -28,7 +29,8 @@
 
 .meta-description {
   font-size: 14px;
-  color: #999;
+  color: #050505 !important;
+  opacity: 1 !important; 
 }
 
 .view-more-container {

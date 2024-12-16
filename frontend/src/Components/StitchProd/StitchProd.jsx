@@ -11,6 +11,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
+import chart from "../../assets/sizeChart.jpg";
 import { EffectFade, Pagination, Navigation, Autoplay } from "swiper/modules";
 import toast from "react-hot-toast";
 
@@ -25,7 +26,10 @@ function StitchProd() {
   const [product, setProduct] = useState(null);
   const [productImages, setProductImages] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [selectedColor, setSelectedColor] = useState(null); // State to manage selected color
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedButton, setSelectedButton] = useState(null);
+  const [selectedEmb, setSelectedEmb] = useState(null);
+  const [selectedPant, setSelectedPant] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const token = import.meta.env.VITE_TOKEN;
@@ -33,15 +37,15 @@ function StitchProd() {
   // Mapping color names to hex codes
   const colorNameHexMap = {
     black: "#000000",
-    blue: "#0000FF",
-    green: "#008000",
-    wine: "#722F37",
-    maroon: "#800000",
-    "dark grey": "#A9A9A9",
+    blue: "#02041b",
+    green: "#023121",
+    wine: "#260301",
+    maroon: "#1f0417",
+    "dark grey": "#2f3237",
     "light grey": "#D3D3D3",
-    cream: "#FFFDD0",
-    beige: "#F5F5DC",
-    brown: "#A52A2A",
+    cream: "#fcecd3",
+    beige: "#dec09a",
+    brown: "#3f2413",
   };
 
   useEffect(() => {
@@ -51,7 +55,6 @@ function StitchProd() {
         const data = response.data;
         setProduct(data);
 
-        // Fetch product images after determining the category
         if (data && data.Category) {
           fetchProductImages(data.Category);
         }
@@ -98,6 +101,7 @@ function StitchProd() {
   }, [id]);
 
   const handleAddToCart = () => {
+
     addItem({
       name: product["product title"],
       category: product.Category,
@@ -105,7 +109,10 @@ function StitchProd() {
       quantity: 1,
       id: id,
       size: true,
-      color: selectedColor, // Add selected color to cart
+      color: selectedColor,
+      button: selectedButton,
+      embroidery: selectedEmb,
+      pant: selectedPant
     });
     toast.success(`${product["product title"]} has been added to your cart!`);
   };
@@ -126,7 +133,7 @@ function StitchProd() {
     <div className="product-container">
       <Swiper
         spaceBetween={30}
-        slidesPerView={3}
+        slidesPerView={1}
         navigation={true}
         centeredSlides={true}
         pagination={{
@@ -139,6 +146,20 @@ function StitchProd() {
         loop={true}
         modules={[EffectFade, Navigation, Pagination, Autoplay]}
         className="mySwiper"
+        breakpoints={{
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 30,
+          },
+          480: {
+            slidesPerView: 1,
+            spaceBetween: 20,
+          },
+          0: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          },
+        }}
       >
         {productImages && productImages.length > 0 ? (
           productImages.map((media, index) => (
@@ -184,10 +205,10 @@ function StitchProd() {
         <div className="desc-left">
           <div className="desc-content">
             <h2>Description</h2>
-            <p>
-              {product ? product["bullet point"] : "N/A"}
-              {product ? product["bullet point "] : "N/A"}
-            </p>
+            <ul>
+              <li>{product ? product["bullet point"] : "N/A"}</li>
+              <li>{product ? product["bullet point "] : "N/A"}</li>
+            </ul>
             <small>
               <MdCurrencyExchange /> Easy returns and exchange
             </small>
@@ -196,12 +217,14 @@ function StitchProd() {
         <div className="desc-right">
           <div className="desc-content">
             <h2>
-              <i>{product ? product["product title"] : "N/A"}</i>
+              <span>
+                {product ? product["product title"].toUpperCase() : "N/A"}
+              </span>
             </h2>
             <p>
-              <h4>
-                <b>Price :</b> ₹ {product ? product.price : "N/A"}
-              </h4>
+              <h3>
+                <b>Price :</b> ₹ {product ? <b>{product.price}</b> : "N/A"}
+              </h3>
               <h4>
                 <b>Size :</b>{" "}
                 <select>
@@ -211,16 +234,17 @@ function StitchProd() {
                     </option>
                   ))}
                 </select>
+                <span onClick={() => handleImageClick(chart)} className="size-span">Size chart</span>
               </h4>
               <h4>
-                <b>Color :</b> {product?.colour}
+                <b>Color :</b> {product?.colour.toUpperCase()}
               </h4>
               <h4>
                 <b>Color Options:</b>
                 <div className="color-options">
                   {product && product["colour options"]
                     ? product["colour options"]
-                        .split(", ")
+                        .split(",")
                         .map((color, index) => (
                           <div
                             key={index}
@@ -228,7 +252,8 @@ function StitchProd() {
                               selectedColor === color ? "selected" : ""
                             }`}
                             style={{
-                              backgroundColor: colorNameHexMap[color] || "#000",
+                              backgroundColor:
+                                colorNameHexMap[color.trim()] || "#000",
                             }}
                             title={color}
                             onClick={() => setSelectedColor(color)}
@@ -238,7 +263,7 @@ function StitchProd() {
                 </div>
                 {selectedColor && (
                   <small className="selected-color-text">
-                    Selected Color: {selectedColor}
+                    Selected Color: {selectedColor.toUpperCase()}
                   </small>
                 )}
               </h4>
@@ -247,25 +272,79 @@ function StitchProd() {
                 {product ? product["delivery time"] : "N/A"}
               </h4>
               <h4>
-                <b>Includes :</b> {product ? product.includes : "N/A"}
+                <b>Includes :</b>{" "}
+                {product ? product.includes.toUpperCase() : "N/A"}
               </h4>
               {product &&
                 (product.Category === "sherwani" ||
                   product.Category === "JodhSuits" ||
                   product.Category === "DesignSuits") && (
                   <h4>
-                    <b>Pant Options :</b> {product["pant option"] || "N/A"}
+                    <b>Pant Options :</b>{" "}
+                    <div className="color-options">
+                      {product && product["pant option"]
+                        ? product["pant option"]
+                            .split(/,| or /)
+                            .map((color, index) => (
+                              <div
+                                key={index}
+                                className={`color-text ${
+                                  selectedPant === color ? "selected" : ""
+                                }`}
+                                title={color}
+                                onClick={() => setSelectedPant(color)}
+                              >
+                                {color.trim().toUpperCase()}
+                              </div>
+                            ))
+                        : "N/A"}
+                    </div>
                   </h4>
                 )}
               {product && product.Category === "BasicSuits" && (
                 <h4>
-                  <b>Button Options :</b> {product["buttons options"] || "N/A"}
+                  <b>Button Options :</b>{" "}
+                  <div className="color-options">
+                    {product && product["buttons options"]
+                      ? product["buttons options"]
+                          .split(" or ")
+                          .map((color, index) => (
+                            <div
+                              key={index}
+                              className={`color-text ${
+                                selectedButton === color ? "selected" : ""
+                              }`}
+                              title={color}
+                              onClick={() => setSelectedButton(color)}
+                            >
+                              {color.trim().toUpperCase()}
+                            </div>
+                          ))
+                      : "N/A"}
+                  </div>
                 </h4>
               )}
               {product && product.Category === "DesignSuits" && (
                 <h4>
                   <b>Embroidery Color Options :</b>{" "}
-                  {product["embroidery colour options"] || "N/A"}
+                  <div className="color-options">
+                    {product && product["embroidery colour options"]
+                      ? product["embroidery colour options"]
+                          .split(",")
+                          .map((color, index) => (
+                            <div
+                              key={index}
+                              className={`color-text ${
+                                selectedEmb === color ? "selected" : ""
+                              }`}
+                              title={color}
+                              onClick={() => setSelectedEmb(color)}
+                            >
+                              {color.trim().toUpperCase()}
+                            </div>
+                          ))
+                      : "N/A"}
+                  </div>
                 </h4>
               )}
             </p>

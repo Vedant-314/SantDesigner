@@ -5,6 +5,7 @@ import axios from "axios";
 import "./NewArrival.css";
 import { hideLoading, showLoading } from '../../../redux/alertSlice';
 import { useDispatch } from "react-redux";
+import Title from "../Title";
 
 
 const NewArrival = () => {
@@ -75,7 +76,7 @@ const NewArrival = () => {
               >
                 <Meta
                   className="meta"
-                  title={product.name}
+                  title={<Title  title={product["Product Name"].toUpperCase()} maxLength={38} />  }
                   description={`₹ ${product["Selling Price"]}`}
                 />
               </Card>
