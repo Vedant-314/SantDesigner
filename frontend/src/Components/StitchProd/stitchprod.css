@@ -6,8 +6,8 @@
   }
   
   .color-circle {
-    width: 20px; /* Shrink the size of the color balls */
-    height: 20px;
+    width: 40px; /* Shrink the size of the color balls */
+    height: 40px;
     border-radius: 50%;
     cursor: pointer;
     border: 1px solid transparent;
@@ -16,6 +16,12 @@
   
   .color-circle:hover {
     transform: scale(1.1);
+  }
+
+  .return-policy{
+    font-size: 12px;
+    border: 1px solid black;
+    padding: 5px;
   }
   
   .color-circle.selected {
@@ -37,9 +43,21 @@
     display: inline-block;
   }
   
+  .pant-text span {
+    cursor: pointer;
+    padding: 0px 5px;
+    border: 1px solid black;
+    display: inline-block;
+  }
+  
   .color-text.selected {
-    font-weight: bold;
-    text-decoration: underline;
+    color: #fefefe;
+    background-color: #050505;
+  }
+
+  .pant-text.selected span {
+    color: #fefefe;
+    background-color: #050505;
   }
 
   .size-span{

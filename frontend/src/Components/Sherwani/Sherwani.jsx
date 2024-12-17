@@ -26,7 +26,7 @@ function Sherwani() {
       try {
         dispatch(showLoading());
         const productResponse = await axios.get("/api/products/stitched");
-        const productData = productResponse.data.filter(product => product.category === "sherwani");
+        const productData = productResponse.data.filter(product => product.Category === "sherwani");
 
         const imageResponse = await Promise.all(
           urls.map((url) =>

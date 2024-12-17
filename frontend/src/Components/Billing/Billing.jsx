@@ -308,7 +308,7 @@ function Billing() {
           <div className="cart-items">
             <div className="cart-products">
               {cart?.map((item) => {
-                const folderPrefix = getCategoryPrefix(item.category); // Determine prefix
+                const folderPrefix = getCategoryPrefix(item.category);
                 return (
                   <div key={item.id} className="cart-product">
                     <div className="img-container">
@@ -326,9 +326,29 @@ function Billing() {
                     </div>
                     <div className="prod-details">
                       <span className="name">{item.title}</span>
+
                       <div className="cart-buttons">
                         <p>Quantity:</p>
                         <span>{item.quantity}</span>
+                      </div>
+
+                      <div className="text">
+                        {item?.color ? (
+                          <span>
+                            <b>Color: </b>
+                            {item.color}
+                          </span>
+                        ) : (
+                          ""
+                        )}
+                        {item?.size ? (
+                          <span>
+                            <b>Size: </b>
+                            {item.size}
+                          </span>
+                        ) : (
+                          ""
+                        )}
                       </div>
                       <div className="text">
                         <span>{item.quantity}</span>

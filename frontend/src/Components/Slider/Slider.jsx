@@ -8,26 +8,13 @@ function Slider() {
   return (
     <div className="banner-container">
       <Carousel autoplay>
-        <div className="slider-content1">
-          {/* <div className="slider-text">
-            <p>
-            Discover the Luxury of Fine Fabrics - Where Style Meets Comfort
-            </p>
-            <Link to='/allarrivals'>
-              <h2>SHOP NOW</h2>
-            </Link>
-          </div> */}
-        </div>
-        <div className="slider-content2">
-          {/* <div className="slider-text">
-            <p>
-            Step into Artisan Elegance - Handcrafted Shoes with Heart
-            </p>
-            <Link to='/custom'>
-              <h2>SHOP NOW</h2>
-            </Link>
-          </div> */}
-        </div>
+        <div className="slider-content1"></div>
+        <div className="slider-content2"></div>
+        <div className="slider-content3"></div>
+        <div className="slider-content4"></div>
+        <div className="slider-content5"></div>
+        <div className="slider-content6"></div>
+        <div className="slider-content7"></div>
       </Carousel>
     </div>
   );

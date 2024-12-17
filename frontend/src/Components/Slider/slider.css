@@ -1,11 +1,11 @@
 .banner-container {
   width: 100%;
   background-color: #f6f1f1;
-  height: 350px;
+  height: 400px;
 }
 
 .banner-container .slider-content1 {
-  background-image: url("../../assets/slider1.jpg");
+  background-image: url("../../assets/Slide1.jpg");
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,11 +14,11 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: 350px;
+  height: 400px;
 }
 
 .banner-container .slider-content2 {
-  background-image: url("../../assets/handcrafted.png");
+  background-image: url("../../assets/Slide2.jpg");
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,7 +27,67 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: 350px;
+  height: 400px;
+}
+.banner-container .slider-content3 {
+  background-image: url("../../assets/Slide3.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: #f6f1f1;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 400px;
+}
+.banner-container .slider-content4 {
+  background-image: url("../../assets/Slide4.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: #f6f1f1;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 400px;
+}
+.banner-container .slider-content5 {
+  background-image: url("../../assets/Slide5.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: #f6f1f1;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 400px;
+}
+.banner-container .slider-content6 {
+  background-image: url("../../assets/Slide6.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: #f6f1f1;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 400px;
+}
+.banner-container .slider-content7 {
+  background-image: url("../../assets/Slide7.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: #f6f1f1;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 400px;
 }
 
 .slider-text {

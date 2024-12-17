@@ -7,6 +7,7 @@ import { CiLogin, CiLogout } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../../redux/userSlice";
 import "./header.css";
+import logo from "../../assets/logo.jpg"
 import Cart from "../Cart/Cart";
 import { useCart } from "../../../utils/context";
 import toast from "react-hot-toast";
@@ -53,8 +54,8 @@ function Header() {
     <>
       <div className="header-container">
         
-        <div className="left">
-          <h2>Sant Designer</h2>
+        <div className="left" onClick={()=> navigate('/')}>
+          <img src={logo} alt="" />
         </div>
         <div className="middle">
           <ul>
@@ -109,19 +110,25 @@ function Header() {
         <div className="responsive-nav">
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/" onClick={handleClick}>Home</Link>
             </li>
             <li>
-              <Link to="/idols">Idols</Link>
+              <Link to="/selection" onClick={handleClick}>Tailored Suits</Link>
             </li>
             <li>
-              <Link to="/giftItems">Customised Designs</Link>
+              <Link to="/sherwani" onClick={handleClick}>Sherwani</Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <Link to="/customconcept" onClick={handleClick}>Custom Concept</Link>
             </li>
             <li>
-              <a href="#contactUs">Contact Us</a>
+              <Link to="/suiting" onClick={handleClick}>Fabrics for Him</Link>
+            </li>
+            <li>
+              <a href="#contactUs" onClick={handleClick}>About</a>
+            </li>
+            <li>
+              <a href="#contactUs" onClick={handleClick}>Contact Us</a>
             </li>
           </ul>
         </div>

@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCart } from "../../../utils/context";
 import axios from "axios";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 import { CiLogin } from "react-icons/ci";
 import { BsCart } from "react-icons/bs";
 import { MdCurrencyExchange } from "react-icons/md";
@@ -16,6 +17,7 @@ import { EffectFade, Pagination, Navigation, Autoplay } from "swiper/modules";
 import toast from "react-hot-toast";
 
 import "./stitchprod.css";
+import { Tooltip } from "antd";
 
 function StitchProd() {
   const { id } = useParams();
@@ -32,6 +34,8 @@ function StitchProd() {
   const [selectedPant, setSelectedPant] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(32);
+  const [selectedPantType, setSelectedPantType] = useState(false);
   const token = import.meta.env.VITE_TOKEN;
 
   // Mapping color names to hex codes
@@ -101,23 +105,23 @@ function StitchProd() {
   }, [id]);
 
   const handleAddToCart = () => {
-
     addItem({
       name: product["product title"],
       category: product.Category,
-      price: product.price,
+      price: selectedPantType ? product.price - 1000 : product.price,
       quantity: 1,
       id: id,
-      size: true,
+      size: selectedSize,
       color: selectedColor,
       button: selectedButton,
       embroidery: selectedEmb,
-      pant: selectedPant
+      pant: selectedPant,
+      pantType: selectedPantType,
     });
     toast.success(`${product["product title"]} has been added to your cart!`);
   };
 
-  const sizeOptions = Array.from({ length: 5 }, (_, i) => 32 + i * 2);
+  const sizeOptions = Array.from({ length: 8 }, (_, i) => 36 + i * 2);
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
@@ -212,6 +216,25 @@ function StitchProd() {
             <small>
               <MdCurrencyExchange /> Easy returns and exchange
             </small>
+            <div className="return-policy">
+              <p>
+                This is an individually crafted piece; thus, the brand does not
+                offer returns on it. 
+                <ul>
+                  <li>In the unlikely event that the merchandise
+                you ordered is not received in good condition or is
+                damaged/defective.</li>
+                  <li>You may return the merchandise unused in its
+                original packaging along with original tags.You can reach out
+                to customer Care for such requests at @santbespoke23@gmail.com</li>
+                  <li>
+                  Made-to-Order pieces are artisanal and crafted using traditional
+                techniques individually. Hence, it may take longer duration than
+                regular products.
+                  </li>
+                </ul>
+              </p>
+            </div>
           </div>
         </div>
         <div className="desc-right">
@@ -223,18 +246,33 @@ function StitchProd() {
             </h2>
             <p>
               <h3>
-                <b>Price :</b> ₹ {product ? <b>{product.price}</b> : "N/A"}
+                <b>Price :</b> ₹{" "}
+                {product ? (
+                  <b>
+                    {selectedPantType ? product.price - 1000 : product.price}
+                  </b>
+                ) : (
+                  "N/A"
+                )}
               </h3>
               <h4>
                 <b>Size :</b>{" "}
-                <select>
+                <select
+                  value={selectedSize}
+                  onChange={(e) => setSelectedSize(Number(e.target.value))}
+                >
                   {sizeOptions.map((size) => (
                     <option key={size} value={size}>
                       {size}
                     </option>
                   ))}
                 </select>
-                <span onClick={() => handleImageClick(chart)} className="size-span">Size chart</span>
+                <span
+                  onClick={() => handleImageClick(chart)}
+                  className="size-span"
+                >
+                  Size chart
+                </span>
               </h4>
               <h4>
                 <b>Color :</b> {product?.colour.toUpperCase()}
@@ -275,6 +313,33 @@ function StitchProd() {
                 <b>Includes :</b>{" "}
                 {product ? product.includes.toUpperCase() : "N/A"}
               </h4>
+              <b>Pant Type: </b>{" "}
+                    <div className="color-options">
+                      {product ? (
+                        <div
+                          className={`pant-text ${
+                            selectedPantType === true ? "selected" : ""
+                          }`}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            cursor: "pointer",
+                            gap: "5px",
+                            position: "relative",
+                          }}
+                          onClick={() => setSelectedPantType(!selectedPantType)}
+                        >
+                          <span>Unstitched ( - Rs 1000)</span>
+                          <Tooltip title="1.4 meters of unstitched pant fabric will be provided">
+                            <AiOutlineInfoCircle
+                              style={{ fontSize: "16px", color: "#007bff" }}
+                            />
+                          </Tooltip>
+                        </div>
+                      ) : (
+                        "N/A"
+                      )}
+                    </div>
               {product &&
                 (product.Category === "sherwani" ||
                   product.Category === "JodhSuits" ||

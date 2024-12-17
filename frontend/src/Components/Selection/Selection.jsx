@@ -6,6 +6,7 @@ import suitCover from "../../assets/suitCover.jpg";
 import shoesCover from "../../assets/basicSuit.jpg";
 import designerCover from "../../assets/designerCover.jpg";
 import cat from "../../assets/JodhpuriSuit.jpg";
+import Selected from './Selected/Selected';
  
 const categories = [
     { title: "All", image: designerCover, link: "stitched", props: "all" },
@@ -19,7 +20,7 @@ function Selection() {
     <div className="selection-container">
         <div className="selection">
         {categories.map((category, index) => (
-                <Category
+                <Selected
                     key={index} 
                     imgSrc={category.image} 
                     link={category.link} 
