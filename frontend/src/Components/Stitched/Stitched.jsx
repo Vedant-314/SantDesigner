@@ -28,6 +28,10 @@ const urls = [
 ];
 
 function Stitched() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const navigate = useNavigate();
@@ -48,7 +52,7 @@ function Stitched() {
       try {
         dispatch(showLoading());
         const productResponse = await axios.get("/api/products/stitched");
-        const productData = productResponse.data.filter(product => product.category !== "sherwani");
+        const productData = productResponse.data.filter(product => product.Category !== "sherwani");
 
         const imageResponse = await Promise.all(
           urls.map((url) =>

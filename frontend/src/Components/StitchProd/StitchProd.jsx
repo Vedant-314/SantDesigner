@@ -20,6 +20,10 @@ import "./stitchprod.css";
 import { Tooltip } from "antd";
 
 function StitchProd() {
+  useEffect(() => {
+    // Scroll to top on initial load
+    window.scrollTo(0, 0);
+  }, []);
   const { id } = useParams();
   const navigate = useNavigate();
   const { addItem } = useCart();
@@ -41,10 +45,10 @@ function StitchProd() {
   // Mapping color names to hex codes
   const colorNameHexMap = {
     black: "#000000",
-    blue: "#02041b",
+    blue: "#0d1543",
     green: "#023121",
-    wine: "#260301",
-    maroon: "#1f0417",
+    wine: "#320442",
+    maroon: "#380005",
     "dark grey": "#2f3237",
     "light grey": "#D3D3D3",
     cream: "#fcecd3",
@@ -244,7 +248,9 @@ function StitchProd() {
                 {product ? product["product title"].toUpperCase() : "N/A"}
               </span>
             </h2>
+
             <p>
+              <div className="center-items">
               <h3>
                 <b>Price :</b> ₹{" "}
                 {product ? (
@@ -277,6 +283,7 @@ function StitchProd() {
               <h4>
                 <b>Color :</b> {product?.colour.toUpperCase()}
               </h4>
+              </div>
               <h4>
                 <b>Color Options:</b>
                 <div className="color-options">

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Category from '../Categories/Category/Category';
 import "./selection.css";
 
@@ -9,13 +9,18 @@ import cat from "../../assets/JodhpuriSuit.jpg";
 import Selected from './Selected/Selected';
  
 const categories = [
-    { title: "All", image: designerCover, link: "stitched", props: "all" },
-    { title: "Basic Suits", image: shoesCover, link: "stitched", props: "BasicSuits" },
-    { title: "Designer Suits", image: suitCover, link: "stitched", props: "DesignSuits" },
-    { title: "Jodhpuri Suits", image: cat, link: "stitched", props: "JodhSuits" },
+  { title: "Designer Suits", image: suitCover, link: "stitched", props: "DesignSuits" },
+  { title: "Basic Suits", image: shoesCover, link: "stitched", props: "BasicSuits" },
+  { title: "Jodhpuri Suits", image: cat, link: "stitched", props: "JodhSuits" },
+  { title: "All", image: designerCover, link: "stitched", props: "all" },
 ];
 
 function Selection() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+
   return (
     <div className="selection-container">
         <div className="selection">

@@ -7,7 +7,7 @@ import { CiLogin, CiLogout } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../../redux/userSlice";
 import "./header.css";
-import logo from "../../assets/logo.jpg"
+import logo from "../../assets/logo.png"
 import Cart from "../Cart/Cart";
 import { useCart } from "../../../utils/context";
 import toast from "react-hot-toast";

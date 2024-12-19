@@ -16,6 +16,7 @@ const categories = [
 ];
 
 function Categories() {
+    
   return (
     <div className="categories-container">
         <div className="categories-title">

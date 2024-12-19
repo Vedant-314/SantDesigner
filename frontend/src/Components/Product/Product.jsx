@@ -16,6 +16,10 @@ import toast from "react-hot-toast";
 import axios from "axios";
 
 function Product() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const { id } = useParams();
   const navigate = useNavigate();
   const { addItem } = useCart();

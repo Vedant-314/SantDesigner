@@ -64,6 +64,67 @@ html {
   height: 4rem;
 }
 
+.custom-concept-banner-container{
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.custom-concept-button{
+  position: relative;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 0px;
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.custom-concept-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+
+.concept-title{
+  position: relative;
+  text-align: center;
+}
+
+.concept-title span{
+  position: relative;
+  font-weight: 800;
+  font-size: 25px;
+  margin: 10px;
+  display: inline-block;
+  padding: 0 10px; /* Space around the text */
+  background: white; /* Optional: To add background behind the text */
+  z-index: 1;
+}
+
+.concept-title::before {
+  content: "";
+  position: absolute;
+  top: 50%; /* Position the line vertically in the middle */
+  left: 0;
+  right: 0;
+  height: 2px; /* Thickness of the line */
+  background: black; /* Color of the line */
+  z-index: 0; /* Ensure the line is behind the text */
+}
+
 @media screen and (max-width: 900px) {
   .shipping {
     flex-flow: column;

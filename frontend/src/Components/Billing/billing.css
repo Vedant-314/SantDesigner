@@ -93,6 +93,15 @@
   gap: 5px;
 }
 
+.text-details{
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+  font-size: 13px;
+}
+
+
+
 .highlight {
   font-weight: bold;
   color: #f60; /* Highlight color for total price */

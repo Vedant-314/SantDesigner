@@ -1,22 +1,35 @@
 .color-options {
-    display: flex;
-    gap: 8px; /* Reduce gap for inline appearance */
-    align-items: center; /* Align circles vertically in the center */
-    margin-top: 5px;
-  }
-  
+  display: flex;
+  flex-wrap: wrap; /* Enable wrapping for responsive layout */
+  gap: 8px; /* Space between color circles */
+  align-items: center; /* Align circles vertically in the center */
+  margin-top: 5px;
+}
+
+.color-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.color-circle:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 600px) {
   .color-circle {
-    width: 40px; /* Shrink the size of the color balls */
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 1px solid transparent;
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    width: 30px; /* Reduce size of circles on smaller screens */
+    height: 30px;
   }
-  
-  .color-circle:hover {
-    transform: scale(1.1);
+
+  .color-options {
+    gap: 6px; 
+    /* justify-content: center; Center-align circles on smaller screens */
   }
+}
 
   .return-policy{
     font-size: 12px;
@@ -38,7 +51,6 @@
   .color-text {
     cursor: pointer;
     padding: 0px 5px;
-    /* margin: 3px; */
     border: 1px solid black;
     display: inline-block;
   }

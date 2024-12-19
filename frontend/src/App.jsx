@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, } from "react-router-dom";
 import { CartProvider } from "../utils/context";
 
 import About from "./Components/About/About";
@@ -23,25 +23,27 @@ import Stitched from "./Components/Stitched/Stitched";
 import StitchProd from "./Components/StitchProd/StitchProd";
 import Selection from "./Components/Selection/Selection";
 import Sherwani from "./Components/Sherwani/Sherwani";
-
+import CustomConcept from "./Components/CustomConcept/CustomConcept";
 
 function App() {
-  useEffect(()=>{
-    window.scrollTo(0, 0);
-  }, [])
 
-  const { loading } = useSelector((state) => state.alerts);
+  useEffect(() => {
+    // Scroll to top on page load or route change
+    window.scrollTo(0, 0);
+  }, [window.location.pathname]);
+
+  // const { loading } = useSelector((state) => state.alerts);
 
   return (
-    <>
+    
       <Router>
         <CartProvider>
           <Header />
-          {loading && (
-          <div className="spinner-parent">
-            <div class="spinner-grow" role="status"></div>
-          </div>
-          )}
+          {/* {loading && (
+            <div className="spinner-parent">
+              <div class="spinner-grow" role="status"></div>
+            </div>
+          )} */}
           <Toaster position="top-center" reverseOrder={false} />
           <Routes>
             <Route
@@ -101,14 +103,7 @@ function App() {
                 </PublicRoute>
               }
             />
-            <Route
-              path="/checkout"
-              element={
-                
-                  <Billing />
-
-              }
-            />
+            <Route path="/checkout" element={<Billing />} />
             <Route
               path="/allarrivals/:category"
               element={
@@ -131,7 +126,16 @@ function App() {
               path="/sherwani"
               element={
                 <PublicRoute>
-                  <Sherwani/>
+                  <Sherwani />
+                </PublicRoute>
+              }
+            />
+
+            <Route
+              path="/customconcept"
+              element={
+                <PublicRoute>
+                  <CustomConcept />
                 </PublicRoute>
               }
             />
@@ -163,7 +167,7 @@ function App() {
           <Footer />
         </CartProvider>
       </Router>
-    </>
+    
   );
 }
 

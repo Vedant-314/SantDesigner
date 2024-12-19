@@ -332,23 +332,48 @@ function Billing() {
                         <span>{item.quantity}</span>
                       </div>
 
-                      <div className="text">
-                        {item?.color ? (
+                      <div className="text-details">
+                        <h3>{item.name? item.name.toUpperCase() : ""}</h3>
+                        <span>
+                          {item?.color ? (
+                            <span>
+                              <b>Color: </b>
+                              {item.color}
+                            </span>
+                          ) : (
+                            ""
+                          )}
+                        </span>
+                        <span>
+                          {item?.size ? (
+                            <span>
+                              <b>Size: </b>
+                              {item.size}
+                            </span>
+                          ) : (
+                            ""
+                          )}
+                        </span>
+                        <span>
+                          {item?.pantType ? (
+                            <span>
+                              <b>Pantype: </b>
+                              {item.pantType ? "Unstitched" : "Stitched"}
+                            </span>
+                          ) : (
+                            ""
+                          )}
+                        </span>
+                        <span>
+                        {item?.pant ? (
                           <span>
-                            <b>Color: </b>
-                            {item.color}
+                            <b>Pant Colour: </b>
+                            {item.pant}
                           </span>
                         ) : (
                           ""
-                        )}
-                        {item?.size ? (
-                          <span>
-                            <b>Size: </b>
-                            {item.size}
-                          </span>
-                        ) : (
-                          ""
-                        )}
+                        )} 
+                        </span>
                       </div>
                       <div className="text">
                         <span>{item.quantity}</span>
