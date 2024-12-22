@@ -25,6 +25,7 @@ function ShoeProd() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(32);
   const token = import.meta.env.VITE_TOKEN;
 
   useEffect(() => {
@@ -46,6 +47,10 @@ function ShoeProd() {
 
     fetchProductDetails();
   }, [id]);
+
+    const handleSizeChange = (event) => {
+    setSelectedSize(event.target.value); 
+    };
 
   useEffect(() => {
     const fetchProductImages = async () => {
@@ -86,7 +91,7 @@ function ShoeProd() {
       category: product.Category,
       quantity: 1,
       id: id,
-      size: true,
+      size: selectedSize,
     });
     toast.success(`${product["Product Name"]} has been added to your cart!`);
   };
@@ -135,11 +140,11 @@ function ShoeProd() {
         className="mySwiper"
         breakpoints={{
           768: {
-            slidesPerView: 3, 
+            slidesPerView: 3,
             spaceBetween: 30,
           },
           480: {
-            slidesPerView: 1, 
+            slidesPerView: 1,
             spaceBetween: 20,
           },
           0: {
@@ -208,7 +213,9 @@ function ShoeProd() {
         <div className="desc-right">
           <div className="desc-content">
             <h2>
-              <span>{product ? product["Product Name"].toUpperCase() : "N/A"}</span>
+              <span>
+                {product ? product["Product Name"].toUpperCase() : "N/A"}
+              </span>
             </h2>
             <p>
               <h4>
@@ -216,7 +223,7 @@ function ShoeProd() {
               </h4>
               <h4>
                 <b>Size :</b>{" "}
-                <select>
+                <select value={selectedSize} onChange={handleSizeChange}>
                   {sizeOptions.map((size) => (
                     <option key={size} value={size}>
                       {size}

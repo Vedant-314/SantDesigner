@@ -38,10 +38,13 @@ router.post("/register", async (req, res) => {
     req.body.password = hashedPassword;
     const newUser = new User(req.body);
     await newUser.save();
-    res
-      .status(200)
-      .send({ message: "User created successfully", success: true });
-  } catch (error) {
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+        expiresIn: "1d",
+      });
+      res
+        .status(200)
+        .send({ message: "Register successful", success: true, data: token });
+    } catch (error) {
     console.log(error);
     res.status(500).send({ message: "Error creating user", success: false });
   }

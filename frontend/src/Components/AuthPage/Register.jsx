@@ -7,7 +7,7 @@ import { toast } from "react-hot-toast";
 import './authpage.css';
 import { hideLoading, showLoading } from '../../../redux/alertSlice';
 import { useDispatch } from "react-redux";
-
+import { setUser } from "../../../redux/userSlice";
 
 function Register() {
   const [isVerified, setIsVerified] = useState(false);
@@ -31,6 +31,26 @@ function Register() {
     }, 1000);
   };
 
+const getUser = async () => {
+  try {
+    const response = await axios.post(
+      "/api/user/get-user-info-by-id",
+      { token: localStorage.getItem("token") },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    if (response.data.success) {
+      dispatch(setUser(response.data.data));
+    } else {
+      localStorage.clear();
+    }
+  } catch (error) {
+    localStorage.clear();
+  }
+};
   const handleSendOtp = async () => {
     try {
       const response = await axios.post("/api/user/send-otp", { email });
@@ -68,18 +88,19 @@ function Register() {
 
       const response = await axios.post("/api/user/register", values);
       dispatch(hideLoading());
-
       if (response.data.success) {
-        toast.success(response.data.message);
-        toast("Redirecting to login page!");
-        navigate("/login");
-      } else {
-        toast.error(response.data.message);
-      }
-    } catch (error) {
-      dispatch(hideLoading());
-      toast.error("Something went wrong!");
-    }
+              toast.success(response.data.message);
+              toast("Redirecting to Home page!");
+              localStorage.setItem("token", response.data.data);
+              getUser();
+              navigate("/");
+            } else {
+              toast.error(response.data.message);
+            }
+          } catch (error) {
+            dispatch(hideLoading())
+            toast.error("Something went wrong!");
+          }
   };
 
   return (
