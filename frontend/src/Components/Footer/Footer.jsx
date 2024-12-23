@@ -33,7 +33,6 @@ const Footer = () => {
             <p>Chakri Bazaar, Inside Nehru Gate Batala</p>
             <p>Punjab 143505 , India</p>
             <p>Email: santdesigner.batala@gmail.com</p>
-            <p>Phone: (+91)-9876543250 , (+91)-6284768586</p>
             <br />
             <div className="business-heading">
               <h3>Business Hours</h3>
