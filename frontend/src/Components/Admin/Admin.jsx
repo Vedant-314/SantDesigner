@@ -67,9 +67,9 @@ function Admin() {
                     ? `https://raw.githubusercontent.com/Gurshaan-1/photos/main/assets/${item.id}/${item.id}_1.jpg`
                     : {
                         DesignSuits: `https://raw.githubusercontent.com/Gurshaan-1/photos/main/DS/${item.id}/${item.id}_1.JPG`,
-                        basicsuit: `https://raw.githubusercontent.com/Gurshaan-1/photos/main/BS/${item.id}/${item.id}_1.JPG`,
+                        BasicSuits: `https://raw.githubusercontent.com/Gurshaan-1/photos/main/BS/${item.id}/${item.id}_1.JPG`,
                         sherwani: `https://raw.githubusercontent.com/Gurshaan-1/photos/main/IW/${item.id}/${item.id}_1.JPG`,
-                        jodhsuits: `https://raw.githubusercontent.com/Gurshaan-1/photos/main/JS/${item.id}/${item.id}_1.JPG`,
+                        JodhSuits: `https://raw.githubusercontent.com/Gurshaan-1/photos/main/JS/${item.id}/${item.id}_1.JPG`,
                         Shoes: `https://raw.githubusercontent.com/Gurshaan-1/photos/main/HBS/${item.id}/${item.id}_1.JPG`,
                       }[item.category] || ""
                 }

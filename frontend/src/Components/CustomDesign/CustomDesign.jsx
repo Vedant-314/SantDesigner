@@ -2,7 +2,9 @@ import { Card, Col, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import banner from "../../assets/handcrafted.png";
+// import banner from "../../assets/handcrafted.png";
+// import shoesCover from "../../assets/shoesCover.jpg";
+import banner from "../../assets/Slide6.jpg";
 import './customdesign.css';
 import axios from "axios";
 import { hideLoading, showLoading } from '../../../redux/alertSlice';
@@ -73,9 +75,13 @@ function CustomDesign() {
 
   return (
     <div className="custom-container">
-      <div className="custom-banner">
-        <img src={banner} alt="banner" />
-      </div>
+      <div
+          className="category-banner"
+            >
+              <h2>
+                {"Shoes"}
+              </h2>
+            </div>
       <div className="arrival">
         <Row gutter={16}>
           {products.map((product) => (

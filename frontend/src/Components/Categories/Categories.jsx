@@ -10,9 +10,9 @@ import cat from "../../assets/cat.jpg";
 
 const categories = [
     { title: "Tailored Suits", image: designerCover, link: "selection" },
+    { title: "Sherwani", image: cat, link: "sherwani" },
     { title: "Handmade Shoes", image: shoesCover, link: "custom" },
     { title: "Fabrics for Him", image: suitCover, link: "allarrivals", props: "suiting" },
-    { title: "Sherwani", image: cat, link: "sherwani" },
 ];
 
 function Categories() {

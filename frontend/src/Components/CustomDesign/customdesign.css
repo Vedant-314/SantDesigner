@@ -8,6 +8,20 @@
     flex-flow: column;
 }
 
+.category-banner {
+  background-image: url("../../assets/Slide6.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: #f6f1f1;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 250px;
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
 .custom-container .custom-banner{
     height: 350px;
     width: 100%;

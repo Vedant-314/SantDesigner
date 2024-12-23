@@ -8,9 +8,11 @@ const router = express.Router();
 router.get("/orders", async (req, res) => {
   try {
     
-    const orders = await Order.find()
+    const simpleOrders = await Order.find();
+    const guestOrders = await GuestOrder.find();
+    const allOrders = [...simpleOrders, ...guestOrders];
+    res.status(200).json(allOrders);
 
-    res.status(200).json(orders);
   } catch (error) {
     res
       .status(500)

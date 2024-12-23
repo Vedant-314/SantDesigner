@@ -54,7 +54,6 @@ function Sherwani() {
 
           let imageUrl = "";
           if (matchingImage) {
-            console.log(matchingImage);
 
             imageUrl = matchingImage.name.endsWith(".MP4")
               ? `https://raw.githubusercontent.com/Gurshaan-1/photos/main/IW/${matchingImage.name}/${matchingImage.name}_2.JPG`
