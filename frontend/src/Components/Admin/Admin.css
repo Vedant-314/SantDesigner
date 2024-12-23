@@ -1,0 +1,5 @@
+.admin-span{
+    display: flex;
+    flex-flow: column;
+    text-transform: uppercase;
+}

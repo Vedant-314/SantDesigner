@@ -215,11 +215,14 @@ function Billing() {
                     }}
                     placeHolder="Select Country"
                     showFlag={true}
+                                        
                   />
                 </Form.Item>
               </Col>
               <Col span={12} xs={24} sm={24} md={12}>
-                <Form.Item label="State" name="state">
+                <Form.Item label="State" name="state" rules={[
+                    { required: true, message: "Please input your state!" },
+                  ]}>
                   <StateSelect
                     countryid={countryId}
                     onChange={(e) => {
@@ -233,7 +236,9 @@ function Billing() {
 
             <Row gutter={16}>
               <Col span={12} xs={24} sm={24} md={12}>
-                <Form.Item label="City" name="city">
+                <Form.Item label="City" name="city" rules={[
+                    { required: true, message: "Please input your City!" },
+                  ]}>
                   <CitySelect
                     countryid={countryId}
                     stateid={stateId}

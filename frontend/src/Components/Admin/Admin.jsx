@@ -1,6 +1,7 @@
-import { Table, Select } from "antd";
+import { Table, Select, Tooltip } from "antd";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { CheckCircleTwoTone, ClockCircleOutlined } from "@ant-design/icons";
 import "./Admin.css";
 
 const { Option } = Select;
@@ -27,7 +28,7 @@ function Admin() {
   const updateOrderStatus = async (orderId, status) => {
     try {
       await axios.put(`/api/admin/orders/${orderId}`, { status });
-    console.log(orderId + status);
+      console.log(orderId + status);
       setOrders((prevOrders) =>
         prevOrders.map((order) =>
           order._id === orderId ? { ...order, status } : order
@@ -61,11 +62,30 @@ function Admin() {
               className="render"
             >
               <img
-                src={`https://raw.githubusercontent.com/Gurshaan-1/photos/main/assets/${item.id}/${item.id}_1.jpg`}
+                src={
+                  item.id.startsWith("sb")
+                    ? `https://raw.githubusercontent.com/Gurshaan-1/photos/main/assets/${item.id}/${item.id}_1.jpg`
+                    : {
+                        DesignSuits: `https://raw.githubusercontent.com/Gurshaan-1/photos/main/DS/${item.id}/${item.id}_1.JPG`,
+                        basicsuit: `https://raw.githubusercontent.com/Gurshaan-1/photos/main/BS/${item.id}/${item.id}_1.JPG`,
+                        sherwani: `https://raw.githubusercontent.com/Gurshaan-1/photos/main/IW/${item.id}/${item.id}_1.JPG`,
+                        jodhsuits: `https://raw.githubusercontent.com/Gurshaan-1/photos/main/JS/${item.id}/${item.id}_1.JPG`,
+                        Shoes: `https://raw.githubusercontent.com/Gurshaan-1/photos/main/HBS/${item.id}/${item.id}_1.JPG`,
+                      }[item.category] || ""
+                }
                 alt={item.name}
                 style={{ width: "40px", height: "40px", marginRight: "10px" }}
               />
-              <span>{item.name}</span>
+
+              <div className="admin-span">
+                <span>{item.name}</span>
+                {item.size ? <span>Size: {item.size}</span> : ''}
+                {item.color ? <span>Color: {item.color}</span> : ''}
+                {item.button ? <span>Button: {item.button}</span> : ''}
+                {item.embroidery ? <span>Embroidery: {item.embroidery}</span> : ''}
+                {item.pant ? <span>Pant Color: {item.pant}</span> : ''}
+                {item.pantType ? <span>Pant Type: {item.pantType ? 'Unstitched' : 'Stitched'}</span> : ''}
+              </div>
             </div>
           ))}
         </div>
@@ -109,7 +129,25 @@ function Admin() {
       title: "Amount",
       dataIndex: "amount",
       key: "amount",
-      render: (amount) => `₹ ${amount}`,
+      render: (amount, record) => (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <span>₹ {amount}</span>
+          {record.paymentMethod !== "COD" ? (
+            <Tooltip title="Paid">
+              <CheckCircleTwoTone
+                twoToneColor="#52c41a"
+                style={{ marginLeft: "8px" }}
+              />
+            </Tooltip>
+          ) : (
+            <Tooltip title="Unpaid">
+              <ClockCircleOutlined
+                style={{ color: "#faad14", marginLeft: "8px" }}
+              />
+            </Tooltip>
+          )}
+        </div>
+      ),
     },
   ];
 
