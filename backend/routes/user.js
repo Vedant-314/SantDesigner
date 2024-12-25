@@ -320,7 +320,6 @@ router.post("/create-guest-cod-order", async (req, res) => {
 router.get('/orders/:userId', async (req, res) => {
   try {
       const userId = req.params.userId;
-      // console.log(userId);
       const orders = await Order.find({ userId :userId});
 
       if (orders.length > 0) {

@@ -12,30 +12,46 @@ function Profile() {
   const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
 
-  // Fetch Orders Logic
-  useEffect(() => {
-    const fetchOrders = async () => {
-      setLoading(true);
-      try {
-        let response;
-        if (user) {
-          response = await axios.get(`/api/user/orders/${user._id}`);
-        } else {
-          const phoneNumber = localStorage.getItem("guestPhoneNumber");
+  const fetchOrders = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(`/api/user/orders/${user._id}`);
+      setOrders(Array.isArray(response.data) ? response.data : []);
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-          response = await axios.get(`/api/user/guest-orders/${phoneNumber}`);
-        }
-        setOrders(
-          Array.isArray(response.data.orders) ? response.data.orders : []
-        );
-      } catch (error) {
-        console.error("Error fetching orders:", error);
-      } finally {
-        setLoading(false);
+  const fetchguestorder = async () => {
+    setLoading(true); 
+    try {
+      const phoneNumber = localStorage.getItem("guestPhoneNumber");
+      let response;
+      if (phoneNumber) {
+        response = await axios.get(`/api/user/guest-orders/${phoneNumber}`);
+      } else {
+        console.warn("Guest phone number not found in localStorage");
+        setOrders([]); 
+        return;
       }
-    };
+      setOrders(
+        Array.isArray(response.data.orders) ? response.data.orders : []
+      );
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchOrders();
+  useEffect(() => {
+    if (user) {
+      fetchOrders();
+    } else {
+      fetchguestorder();
+    }
   }, [user]);
 
   const getCategoryPrefix = (category) => {
@@ -54,6 +70,7 @@ function Profile() {
         return "assets"; // Fallback folder
     }
   };
+
   const columns = [
     {
       title: "S.No.",
@@ -78,19 +95,13 @@ function Profile() {
                 }}
                 className="render"
               >
-                {folderPrefix && folderPrefix === "assets" ? (
-                  <img
-                    className="guest-profile-products"
-                    src={`https://raw.githubusercontent.com/Gurshaan-1/photos/main/${folderPrefix}/${item.id}/${item.id}_1.jpg`}
-                    alt={item.title}
-                  />
-                ) : (
-                  <img
-                    className="guest-profile-products"
-                    src={`https://raw.githubusercontent.com/Gurshaan-1/photos/main/${folderPrefix}/${item.id}/${item.id}_1.JPG`}
-                    alt={item.title}
-                  />
-                )}
+                <img
+                  className="guest-profile-products"
+                  src={`https://raw.githubusercontent.com/Gurshaan-1/photos/main/${folderPrefix}/${
+                    item.id
+                  }/${item.id}_1.${folderPrefix === "assets" ? "jpg" : "JPG"}`}
+                  alt={item.title}
+                />
                 <span onClick={() => navigate(`/product/${item.id}`)}>
                   {item.name}
                 </span>
@@ -147,10 +158,7 @@ function Profile() {
     <div className="profile-container">
       <div className="avatar">{avatarLetter}</div>
       <h2 className="full-name">{user?.name || "Guest"}</h2>
-      <p className="phone-number">
-        Phone:{" "}
-        {user?.phone || localStorage.getItem("guestPhoneNumber") || "N/A"}
-      </p>
+      <p className="phone-number">Phone: {user?.phone || localStorage.getItem("guestPhoneNumber")  || "N/A"}</p>
 
       <div className="orders-title">My Orders</div>
       <Table

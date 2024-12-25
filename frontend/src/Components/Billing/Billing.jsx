@@ -106,6 +106,7 @@ function Billing() {
               }
 
               clearCart();
+              localStorage.setItem("guestPhoneNumber", address.phoneNumber);
               navigate("/profile");
               toast.success("Payment successful and order placed!");
             } catch (error) {
