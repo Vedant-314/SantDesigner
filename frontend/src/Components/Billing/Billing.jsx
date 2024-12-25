@@ -63,6 +63,7 @@ function Billing() {
         }
 
         clearCart();
+        localStorage.setItem("guestPhoneNumber", address.phoneNumber);
         navigate("/profile");
         toast.success("Order placed successfully. Pay upon delivery.");
       } catch (error) {
