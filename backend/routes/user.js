@@ -290,7 +290,7 @@ router.post("/create-guest-cod-order", async (req, res) => {
     const newOrder = new GuestOrder({
       firstName: firstName,
       phoneNumber: phoneNumber,
-      paymentStatus: "Success",
+      paymentStatus: "Pending",
       paymentMethod: "COD",
       desc: {
         items: cart,

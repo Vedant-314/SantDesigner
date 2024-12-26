@@ -7,7 +7,7 @@ import { CiLogin, CiLogout } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../../redux/userSlice";
 import "./header.css";
-import logo from "../../assets/logo.png"
+import logo from "../../assets/logo.png";
 import Cart from "../Cart/Cart";
 import { useCart } from "../../../utils/context";
 import toast from "react-hot-toast";
@@ -36,7 +36,7 @@ function Header() {
     if (userName) {
       navigate("/profile");
     } else {
-      setPhoneModalOpen(true); // Open phone number modal for guests
+      setPhoneModalOpen(true);
     }
   };
 
@@ -53,8 +53,7 @@ function Header() {
   return (
     <>
       <div className="header-container">
-        
-        <div className="left" onClick={()=> navigate('/')}>
+        <div className="left" onClick={() => navigate("/")}>
           <img src={logo} alt="" />
         </div>
         <div className="middle">
@@ -87,7 +86,7 @@ function Header() {
           </span>
 
           {!user && (
-            <div className="login-box" onClick={() => navigate('/login')}>
+            <div className="login-box" onClick={() => navigate("/login")}>
               <CiLogin /> <span className="user-name">Login</span>
             </div>
           )}
@@ -97,38 +96,54 @@ function Header() {
               <CiLogout />
             </div>
           )}
-        <div className="hamburger">
-          {clicked ? (
-            <RxCross2 onClick={handleClick} />
-          ) : (
-            <FaBars onClick={handleClick} />
-          )}
-        </div>
+          <div className="hamburger">
+            {clicked ? (
+              <RxCross2 onClick={handleClick} />
+            ) : (
+              <FaBars onClick={handleClick} />
+            )}
+          </div>
         </div>
       </div>
       {clicked && (
         <div className="responsive-nav">
           <ul>
             <li>
-              <Link to="/" onClick={handleClick}>Home</Link>
+              <Link to="/" onClick={handleClick}>
+                Home
+              </Link>
             </li>
             <li>
-              <Link to="/selection" onClick={handleClick}>Tailored Suits</Link>
+              <Link to="/selection" onClick={handleClick}>
+                Tailored Suits
+              </Link>
             </li>
             <li>
-              <Link to="/sherwani" onClick={handleClick}>Sherwani</Link>
+              <Link to="/sherwani" onClick={handleClick}>
+                Sherwani
+              </Link>
             </li>
             <li>
-              <Link to="/customconcept" onClick={handleClick}>Custom Concept</Link>
+              <Link to="/customconcept" onClick={handleClick}>
+                Custom Concept
+              </Link>
             </li>
             <li>
-              <Link to="/suiting" onClick={handleClick}>Fabrics for Him</Link>
+              <Link to="/suiting" onClick={handleClick}>
+                Fabrics for Him
+              </Link>
             </li>
             <li>
-              <a href="#contactUs" onClick={handleClick}>About</a>
+              <a href="#contactUs" onClick={handleClick}>
+                About
+              </a>
             </li>
             <li>
-              <a href="#contactUs" onClick={handleClick}>Contact Us</a>
+              {user?.isAdmin ? (
+                <Link to="/admin1234">Admin</Link>
+              ) : (
+                <a href="#contactUs">Contact Us</a>
+              )}{" "}
             </li>
           </ul>
         </div>
