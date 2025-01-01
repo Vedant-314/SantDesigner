@@ -1,0 +1,189 @@
+/* Terms and Conditions Styles */
+.terms-container {
+  max-width: 1024px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.terms-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.terms-content {
+  margin-top: 1.5rem;
+}
+
+.section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 2rem 0 1rem 0;
+}
+
+.section-text {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.section-text.important {
+  font-weight: 500;
+}
+
+.company-name {
+  font-style: italic;
+  color: #2c5282;
+}
+
+.term-highlight {
+  font-weight: bold;
+  color: #1a365d;
+}
+
+.contact-info {
+  font-style: italic;
+  color: #2c5282;
+}
+
+a{
+color: black;
+}
+
+/* Base container and typography */
+.terms-container {
+  max-width: 1024px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.terms-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #1a365d;
+}
+
+.terms-content {
+  margin-top: 1.5rem;
+}
+
+/* Section styling */
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 2rem 0 1rem 0;
+  color: #2d3748;
+}
+
+.subsection-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem 0;
+  color: #4a5568;
+}
+
+.section-text {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  color: #2d3748;
+}
+
+.section-text.important {
+  font-weight: 500;
+  color: #2d3748;
+  background-color: #f7fafc;
+  padding: 1rem;
+  border-left: 4px solid #4299e1;
+}
+
+/* Lists styling */
+.list-items, .numbered-list {
+  margin: 0.5rem 0 1.5rem 1.5rem;
+  line-height: 1.6;
+}
+
+.list-items li, .numbered-list li {
+  margin-bottom: 0.5rem;
+  color: #2d3748;
+}
+
+/* Special text styling */
+.company-name {
+  font-style: italic;
+  color: #2c5282;
+}
+
+.contact-info {
+  font-style: italic;
+  color: #2c5282;
+}
+
+.link {
+  color: #4299e1;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: #2b6cb0;
+  text-decoration: underline;
+}
+
+.table-container {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
+
+.shipping-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.shipping-table th,
+.shipping-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.shipping-table th {
+  background-color: #f7fafc;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.shipping-table tr:hover {
+  background-color: #f7fafc;
+}
+
+.shipping-table td {
+  color: #4a5568;
+}
+
+/* Delivery areas */
+.delivery-areas {
+  background-color: #f7fafc;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+/* Responsive table */
+@media (max-width: 640px) {
+  .shipping-table {
+    font-size: 0.875rem;
+  }
+  
+  .shipping-table th,
+  .shipping-table td {
+    padding: 0.75rem;
+  }
+}

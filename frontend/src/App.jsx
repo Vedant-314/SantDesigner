@@ -24,6 +24,10 @@ import StitchProd from "./Components/StitchProd/StitchProd";
 import Selection from "./Components/Selection/Selection";
 import Sherwani from "./Components/Sherwani/Sherwani";
 import CustomConcept from "./Components/CustomConcept/CustomConcept";
+import TermsandConditions from "./Components/policies/TermsandConditions"
+import Privacypolicy from "./Components/policies/Privacypolicy";
+import RefundPolicy from "./Components/policies/RefundPolicy";
+import Shippingpolicy from "./Components/policies/Shippingpolicy";
 
 function App() {
 
@@ -71,6 +75,10 @@ function App() {
               }
             />
             <Route path="/about" element={<About />} />
+            <Route path="/termsandconditions" element={<TermsandConditions />} />
+            <Route path="/privacypolicy" element={<Privacypolicy />} />
+            <Route path="/refundpolicy" element={<RefundPolicy />} />
+            <Route path="/shippingpolicy" element={<Shippingpolicy />} />
             <Route
               path="/product/:id"
               element={

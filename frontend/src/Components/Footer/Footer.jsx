@@ -80,6 +80,20 @@ const Footer = () => {
           &copy; {new Date().getFullYear()} Sant Designer. All Rights Reserved.
         </p>
       </div>
+      <div className="footer-links">
+        <a href="/termsandconditions" className="footer-link">
+          Terms and Conditions
+        </a>
+        <a href="/privacypolicy" className="footer-link">
+          Privacy Policy
+        </a>
+        <a href="/refundpolicy" className="footer-link">
+          Refund Policy
+        </a>
+        <a href="/shippingpolicy" className="footer-link">
+          Shipping Policy
+        </a>
+      </div>
     </footer>
   );
 };
