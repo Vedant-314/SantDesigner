@@ -38,7 +38,7 @@ function StitchProd() {
   const [selectedPant, setSelectedPant] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(32);
+  const [selectedSize, setSelectedSize] = useState(36);
   const [selectedPantType, setSelectedPantType] = useState(false);
   const token = import.meta.env.VITE_TOKEN;
 
