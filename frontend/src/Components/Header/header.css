@@ -22,6 +22,10 @@
   color: #f6f1f1;
 }
 
+a{
+  color: #fefefe !important;
+}
+
 .hamburger {
   display: none;
 }
@@ -214,13 +218,20 @@ a {
   .header-container {
     justify-content: space-around;
     font-size: 8px;
+    color: #fefefe;
   }
+
+  a{
+    color: #fefefe !important;
+  }
+
   .middle {
     display: none;
   }
   .responsive-nav {
     display: flex;
     z-index: 2;
+    color: #fefefe;
     transition: opacity 0.5s ease; /* Add transition */
   }
   .hamburger {
