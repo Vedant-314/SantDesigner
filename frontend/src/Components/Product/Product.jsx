@@ -204,7 +204,7 @@ function Product() {
             </h2>
             <p>
               <h4>
-                <b>Price :</b> ₹ {product["Selling Price"]}
+                <b>Price :</b> INR {product["Selling Price"]}
               </h4>
               <h4>
                 <b>Size :</b> {product.Size}

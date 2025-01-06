@@ -34,9 +34,9 @@ const RefundPolicy = () => {
             we will send you an email to notify you that we have received your
             returned item. We will also notify you of the approval or rejection
             of your refund. <br />
-            <br /> If you are approved, then your refund will be processed, and
-            a credit will automatically be applied to your credit card or
-            original method of payment, within a certain amount of days.
+            <br /><b>The refund will be initiated
+            as soon as the request is recieved and total amount will be credited
+            in customer’s account within 5-7 working days </b> 
           </p>
 
           <h3 className="subsection-title">

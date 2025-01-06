@@ -219,7 +219,7 @@ function ShoeProd() {
             </h2>
             <p>
               <h4>
-                <b>Price :</b> ₹ {product ? product["Selling Price"] : "N/A"}
+                <b>Price :</b> INR {product ? product["Selling Price"] : "N/A"}
               </h4>
               <h4>
                 <b>Size :</b>{" "}

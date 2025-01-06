@@ -42,7 +42,7 @@ function Cart({ setShowCart }) {
             <div className="cart-footer">
               <div className="subtotal">
                 <span className="text">SubTotal: </span>
-                <span className="text total">&#8377; {subtotal}</span>
+                <span className="text total">INR {subtotal}</span>
               </div>
               <div className="button">
                 <button className="checkout-cta" onClick={handleCheckout}>

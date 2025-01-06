@@ -252,7 +252,7 @@ function StitchProd() {
             <p>
               <div className="center-items">
               <h3>
-                <b>Price :</b> ₹{" "}
+                <b>Price :</b> INR{" "}
                 {product ? (
                   <b>
                     {selectedPantType ? product.price - 1000 : product.price}

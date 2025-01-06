@@ -9,9 +9,7 @@ const ShippingPolicy = () => {
       <div className="terms-content">
         <section>
           <p className="section-text important">
-            It's important to start by clarifying to customers that your order
-            processing times are separate from the shipping times they see at
-            checkout.
+          The product will generally be  shipped between 12-16 working days.
           </p>
           <p className="section-text">
             We ship from our batala office and shipping is free within India.

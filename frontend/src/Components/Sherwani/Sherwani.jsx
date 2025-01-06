@@ -117,7 +117,7 @@ function Sherwani() {
                   <Meta
                     className="meta"
                     title={product["product title"].toUpperCase()}
-                    description={`₹ ${product.price}`}
+                    description={`INR ${product.price}`}
                   />
                 </Card>
               </Col>

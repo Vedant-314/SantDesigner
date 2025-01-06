@@ -77,7 +77,7 @@ const NewArrival = () => {
                 <Meta
                   className="meta"
                   title={<Title  title={product["Product Name"].toUpperCase()} maxLength={38} />  }
-                  description={`₹ ${product["Selling Price"]}`}
+                  description={`INR ${product["Selling Price"]}`}
                 />
               </Card>
             </Col>
