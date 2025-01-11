@@ -77,7 +77,7 @@ function Billing() {
           : await axios.post("/api/user/create-guest-order", { subtotal });
 
         const options = {
-          key: "rzp_test_zK3u7sfYV5RQYI",
+          key: "rzp_live_1qnsEuTKBo9s1p",
           amount: order.data.amount,
           currency: "INR",
           order_id: order.data.id,
